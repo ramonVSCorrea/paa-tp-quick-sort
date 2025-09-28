@@ -95,7 +95,86 @@ Threshold M=10: 0.19 ms
 Melhor threshold determinado: M=50 (0.06 ms)
 ```
 
-### 2. Tipos de Dados Testados
+### 2. Exportação Automática de Arrays e Resultados
+
+**FUNCIONALIDADE**: Para cada array testado, o programa automaticamente gera arquivos .txt organizados em uma estrutura hierárquica no diretório `arrays_testados/`:
+
+#### Estrutura de Diretórios:
+```
+arrays_testados/
+├── aleatorio/
+│   ├── arrays_originais/
+│   │   ├── array_original_random_100.txt
+│   │   ├── array_original_random_500.txt
+│   │   └── ... (outros tamanhos)
+│   ├── arrays_ordenados/
+│   │   ├── array_ordenado_Quicksort_Recursivo_random_100.txt
+│   │   ├── array_ordenado_Quicksort_Hibrido_random_100.txt
+│   │   └── ... (todos algoritmos e tamanhos)
+│   └── resultados/
+│       └── resultados_aleatorio.txt
+├── ordenado/
+│   ├── arrays_originais/
+│   ├── arrays_ordenados/
+│   └── resultados/
+├── ordenado_inverso/
+├── muitos_duplicados/
+└── pior_caso/
+```
+
+#### Tipos de Arquivos Gerados:
+
+1. **Arrays Originais** - `arrays_originais/array_original_[tipo]_[tamanho].txt`
+   - Contém o array antes da ordenação
+   - **TODOS os elementos são exibidos** (não há omissão)
+   - Organizados por tipo de dados
+
+2. **Arrays Ordenados** - `arrays_ordenados/array_ordenado_[algoritmo]_[tipo]_[tamanho].txt`
+   - Contém o array após ordenação por cada algoritmo
+   - **TODOS os elementos são exibidos** com verificação de ordenação
+   - Um arquivo por algoritmo testado
+   - Inclui verificação automática: "ORDENADO CORRETAMENTE"
+
+3. **Resultados** - `resultados/resultados_[tipo].txt`
+   - Performance consolidada por tipo de dados
+   - Tempos em ms e nanosegundos
+   - Status de sucesso/falha de cada teste
+
+4. **Resumo Geral** - `resumo_geral.txt`
+   - Visão consolidada de todos os testes no diretório raiz
+   - Threshold ótimo determinado
+   - Mapa da estrutura de arquivos gerada
+
+#### Características da Exportação:
+
+- **Organização Hierárquica**: Cada tipo de dados tem sua pasta separada
+- **Sobreescrita Inteligente**: Cada execução substitui os arquivos anteriores
+- **Exibição Completa**: Todos os elementos dos arrays são mostrados (não há "..." ou omissões)
+- **Nomes Limpos**: Sem timestamps, nomes de arquivos consistentes
+- **Estrutura Padronizada**: Fácil navegação e localização dos dados
+
+#### Exemplo de Arquivo de Array Completo:
+```
+========================================
+ARRAY ORIGINAL TESTADO
+========================================
+Tipo: Aleatorio
+Tamanho: 100 elementos
+Data/Hora: 28/09/2025 12:15:30
+----------------------------------------
+Elementos:
+[0] = 45
+[1] = 23
+[2] = 78
+[3] = 12
+...
+[98] = 34
+[99] = 67
+
+Total de elementos: 100
+```
+
+### 3. Tipos de Dados Testados
 
 O programa gera e testa cinco tipos diferentes de arrays:
 
@@ -107,7 +186,7 @@ O programa gera e testa cinco tipos diferentes de arrays:
 | **Muitos Duplicados** | 90% de elementos duplicados | Testa eficiência com muitas repetições |
 | **Pior Caso** | Força explicitamente O(n²) | Demonstra limitações do Quicksort tradicional |
 
-### 3. Algoritmos Implementados
+### 4. Algoritmos Implementados
 
 #### Quicksort Recursivo (Tradicional)
 ```java
@@ -130,7 +209,7 @@ O programa gera e testa cinco tipos diferentes de arrays:
 // Benefício: evita o pior caso O(n²) em dados ordenados
 ```
 
-### 4. Testes de Performance
+### 5. Testes de Performance
 
 Para cada combinação algoritmo + tipo de dados + tamanho:
 
@@ -139,12 +218,12 @@ Para cada combinação algoritmo + tipo de dados + tamanho:
 - **Validação**: Verifica se o resultado está ordenado
 - **Média**: Calcula média de 5 execuções para maior precisão
 
-### 5. Tamanhos de Teste
+### 6. Tamanhos de Teste
 
 O programa testa arrays de tamanhos variados:
 - 100, 500, 1000, 2000, 5000, 10000 elementos
 
-### 6. Análise do Pior Caso
+### 7. Análise do Pior Caso
 
 Uma seção especial força explicitamente o pior caso do Quicksort:
 - Arrays ordenados com pivô sempre sendo o último elemento

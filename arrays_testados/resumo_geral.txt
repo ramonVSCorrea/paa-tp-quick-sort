@@ -1,0 +1,134 @@
+========================================
+RESUMO GERAL DO ESTUDO COMPARATIVO
+========================================
+Data/Hora: 28/09/2025 12:19:48
+Threshold Otimo Determinado: M=75
+Total de Testes Realizados: 102
+----------------------------------------
+
+
+=== RESULTADOS PARA: ALEATORIO ===
+Tamanho: 100 | Quicksort Recursivo: 0,065 ms | OK
+Tamanho: 100 | Quicksort Hibrido (M=75): 0,013 ms | OK
+Tamanho: 100 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,021 ms | OK
+Tamanho: 500 | Quicksort Recursivo: 0,123 ms | OK
+Tamanho: 500 | Quicksort Hibrido (M=75): 0,065 ms | OK
+Tamanho: 500 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,115 ms | OK
+Tamanho: 1000 | Quicksort Recursivo: 0,153 ms | OK
+Tamanho: 1000 | Quicksort Hibrido (M=75): 0,248 ms | OK
+Tamanho: 1000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,529 ms | OK
+Tamanho: 2000 | Quicksort Recursivo: 0,300 ms | OK
+Tamanho: 2000 | Quicksort Hibrido (M=75): 0,185 ms | OK
+Tamanho: 2000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,517 ms | OK
+Tamanho: 5000 | Quicksort Recursivo: 0,825 ms | OK
+Tamanho: 5000 | Quicksort Hibrido (M=75): 0,531 ms | OK
+Tamanho: 5000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 1,037 ms | OK
+Tamanho: 10000 | Quicksort Recursivo: 1,511 ms | OK
+Tamanho: 10000 | Quicksort Hibrido (M=75): 1,324 ms | OK
+Tamanho: 10000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 2,486 ms | OK
+
+=== RESULTADOS PARA: ORDENADO ===
+Tamanho: 100 | Quicksort Recursivo: 0,018 ms | OK
+Tamanho: 100 | Quicksort Hibrido (M=75): 0,009 ms | OK
+Tamanho: 100 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,014 ms | OK
+Tamanho: 500 | Quicksort Recursivo: 0,330 ms | OK
+Tamanho: 500 | Quicksort Hibrido (M=75): 0,917 ms | OK
+Tamanho: 500 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,046 ms | OK
+Tamanho: 1000 | Quicksort Recursivo: 2,065 ms | OK
+Tamanho: 1000 | Quicksort Hibrido (M=75): 1,368 ms | OK
+Tamanho: 1000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,100 ms | OK
+Tamanho: 2000 | Quicksort Recursivo: 5,646 ms | OK
+Tamanho: 2000 | Quicksort Hibrido (M=75): 5,323 ms | OK
+Tamanho: 2000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,032 ms | OK
+Tamanho: 5000 | Quicksort Recursivo: 30,466 ms | OK
+Tamanho: 5000 | Quicksort Hibrido (M=75): 30,027 ms | OK
+Tamanho: 5000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,094 ms | OK
+Tamanho: 10000 | Quicksort Recursivo: 123,565 ms | OK
+Tamanho: 10000 | Quicksort Hibrido (M=75): 121,845 ms | OK
+Tamanho: 10000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,288 ms | OK
+
+=== RESULTADOS PARA: ORDENADO INVERSO ===
+Tamanho: 100 | Quicksort Recursivo: 0,009 ms | OK
+Tamanho: 100 | Quicksort Hibrido (M=75): 0,011 ms | OK
+Tamanho: 100 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,009 ms | OK
+Tamanho: 500 | Quicksort Recursivo: 0,274 ms | OK
+Tamanho: 500 | Quicksort Hibrido (M=75): 0,202 ms | OK
+Tamanho: 500 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,032 ms | OK
+Tamanho: 1000 | Quicksort Recursivo: 0,687 ms | OK
+Tamanho: 1000 | Quicksort Hibrido (M=75): 0,781 ms | OK
+Tamanho: 1000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,072 ms | OK
+Tamanho: 2000 | Quicksort Recursivo: 2,851 ms | OK
+Tamanho: 2000 | Quicksort Hibrido (M=75): 3,245 ms | OK
+Tamanho: 2000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,136 ms | OK
+Tamanho: 5000 | Quicksort Recursivo: 16,837 ms | OK
+Tamanho: 5000 | Quicksort Hibrido (M=75): 19,441 ms | OK
+Tamanho: 5000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,497 ms | OK
+Tamanho: 10000 | Quicksort Recursivo: 67,379 ms | OK
+Tamanho: 10000 | Quicksort Hibrido (M=75): 77,823 ms | OK
+Tamanho: 10000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 1,016 ms | OK
+
+=== RESULTADOS PARA: MUITOS DUPLICADOS ===
+Tamanho: 100 | Quicksort Recursivo: 0,006 ms | OK
+Tamanho: 100 | Quicksort Hibrido (M=75): 0,004 ms | OK
+Tamanho: 100 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,004 ms | OK
+Tamanho: 500 | Quicksort Recursivo: 0,021 ms | OK
+Tamanho: 500 | Quicksort Hibrido (M=75): 0,024 ms | OK
+Tamanho: 500 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,036 ms | OK
+Tamanho: 1000 | Quicksort Recursivo: 0,057 ms | OK
+Tamanho: 1000 | Quicksort Hibrido (M=75): 0,050 ms | OK
+Tamanho: 1000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,050 ms | OK
+Tamanho: 2000 | Quicksort Recursivo: 0,147 ms | OK
+Tamanho: 2000 | Quicksort Hibrido (M=75): 0,126 ms | OK
+Tamanho: 2000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,161 ms | OK
+Tamanho: 5000 | Quicksort Recursivo: 0,430 ms | OK
+Tamanho: 5000 | Quicksort Hibrido (M=75): 0,377 ms | OK
+Tamanho: 5000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,386 ms | OK
+Tamanho: 10000 | Quicksort Recursivo: 0,919 ms | OK
+Tamanho: 10000 | Quicksort Hibrido (M=75): 0,807 ms | OK
+Tamanho: 10000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 1,086 ms | OK
+
+=== RESULTADOS PARA: PIOR CASO ===
+Tamanho: 100 | Quicksort Recursivo: 0,025 ms | OK
+Tamanho: 100 | Quicksort Hibrido (M=75): 0,009 ms | OK
+Tamanho: 100 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,002 ms | OK
+Tamanho: 500 | Quicksort Recursivo: 0,314 ms | OK
+Tamanho: 500 | Quicksort Hibrido (M=75): 0,303 ms | OK
+Tamanho: 500 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,006 ms | OK
+Tamanho: 1000 | Quicksort Recursivo: 2,119 ms | OK
+Tamanho: 1000 | Quicksort Hibrido (M=75): 1,209 ms | OK
+Tamanho: 1000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,011 ms | OK
+Tamanho: 2000 | Quicksort Recursivo: 4,864 ms | OK
+Tamanho: 2000 | Quicksort Hibrido (M=75): 4,880 ms | OK
+Tamanho: 2000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,037 ms | OK
+Tamanho: 5000 | Quicksort Recursivo: 30,561 ms | OK
+Tamanho: 5000 | Quicksort Hibrido (M=75): 30,892 ms | OK
+Tamanho: 5000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,075 ms | OK
+Tamanho: 10000 | Quicksort Recursivo: 132,495 ms | OK
+Tamanho: 10000 | Quicksort Hibrido (M=75): 120,987 ms | OK
+Tamanho: 10000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,159 ms | OK
+Tamanho: 100 | Quicksort Recursivo: 0,015 ms | OK
+Tamanho: 100 | Quicksort Hibrido (M=75): 0,007 ms | OK
+Tamanho: 100 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,003 ms | OK
+Tamanho: 200 | Quicksort Recursivo: 0,059 ms | OK
+Tamanho: 200 | Quicksort Hibrido (M=75): 0,052 ms | OK
+Tamanho: 200 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,006 ms | OK
+Tamanho: 500 | Quicksort Recursivo: 0,314 ms | OK
+Tamanho: 500 | Quicksort Hibrido (M=75): 0,300 ms | OK
+Tamanho: 500 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,006 ms | OK
+Tamanho: 1000 | Quicksort Recursivo: 1,231 ms | OK
+Tamanho: 1000 | Quicksort Hibrido (M=75): 1,206 ms | OK
+Tamanho: 1000 | Quicksort Hibrido Melhorado (M=75, Mediana-de-3): 0,011 ms | OK
+
+========================================
+ESTRUTURA DOS ARQUIVOS GERADOS:
+arrays_testados/
+|-- aleatorio/
+|   |-- arrays_originais/
+|   |-- arrays_ordenados/
+|   |-- resultados/
+|-- ordenado/
+|   |-- arrays_originais/
+|   |-- arrays_ordenados/
+|   |-- resultados/
+|-- ... (outros tipos)
+========================================

@@ -8,6 +8,8 @@ import paa.sort.domain.performance.PerformanceTester;
 import paa.sort.domain.performance.PerformanceResult;
 import paa.sort.domain.performance.ThresholdOptimizer;
 import paa.sort.domain.testdata.DataType;
+import paa.sort.domain.testdata.TestDataGenerator;
+import paa.sort.infrastructure.export.ArrayExporter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +20,14 @@ import java.util.List;
 public class QuickSortComparativeStudy {
     private final PerformanceTester performanceTester;
     private final ThresholdOptimizer thresholdOptimizer;
+    private final ArrayExporter arrayExporter;
+    private final TestDataGenerator testDataGenerator;
 
     public QuickSortComparativeStudy() {
         this.performanceTester = new PerformanceTester();
         this.thresholdOptimizer = new ThresholdOptimizer();
+        this.arrayExporter = new ArrayExporter();
+        this.testDataGenerator = new TestDataGenerator(42);
     }
 
     /**
@@ -29,7 +35,10 @@ public class QuickSortComparativeStudy {
      */
     public void executeCompleteStudy() {
         System.out.println("=== ESTUDO COMPARATIVO DE ALGORITMOS QUICKSORT ===");
+        System.out.println("Gerando arquivos .txt organizados por tipo de dados...");
         System.out.println();
+
+        List<PerformanceResult> allResults = new ArrayList<>();
 
         // 1. Determina o threshold otimo
         ThresholdOptimizer.OptimizationResult optimization =
@@ -60,16 +69,25 @@ public class QuickSortComparativeStudy {
             System.out.println("--- Testando com dados: " + dataType.getDescription() + " ---");
             System.out.println();
 
+            List<PerformanceResult> typeResults = new ArrayList<>();
+
             for (int size : testSizes) {
                 System.out.println("Tamanho do array: " + size);
+
+                // Gera o array original e salva
+                int[] originalArray = testDataGenerator.generateData(dataType, size);
+                arrayExporter.saveOriginalArray(dataType, size, originalArray);
 
                 List<PerformanceResult> results = new ArrayList<>();
 
                 for (SortingAlgorithm algorithm : algorithms) {
-                    PerformanceResult result = performanceTester.testAlgorithmMultipleTimes(
-                        algorithm, dataType, size, 5
+                    // Executa o teste e mede performance
+                    PerformanceResult result = testAlgorithmAndSaveArrays(
+                        algorithm, dataType, size, originalArray.clone()
                     );
                     results.add(result);
+                    allResults.add(result);
+                    typeResults.add(result);
 
                     System.out.printf("  %s: %.2f ms%n",
                         result.getAlgorithmName(), result.getExecutionTimeMillis());
@@ -87,11 +105,95 @@ public class QuickSortComparativeStudy {
                 System.out.println();
             }
 
+            // Salva resultados por tipo de dados
+            arrayExporter.saveTestResults(typeResults, dataType.getDescription(), dataType);
             System.out.println();
         }
 
         // 6. Executa teste especifico do pior caso
-        executeWorstCaseAnalysis(algorithms);
+        executeWorstCaseAnalysis(algorithms, allResults);
+
+        // 7. Salva resumo geral
+        arrayExporter.saveGeneralSummary(allResults, optimalThreshold);
+
+        System.out.println();
+        System.out.println("=== ARQUIVOS GERADOS ===");
+        System.out.println("Estrutura organizada criada em 'arrays_testados/':");
+        System.out.println("- Cada tipo de dados tem sua pasta separada");
+        System.out.println("- Arrays originais em /arrays_originais/");
+        System.out.println("- Arrays ordenados em /arrays_ordenados/");
+        System.out.println("- Resultados em /resultados/");
+        System.out.println("- Todos os elementos dos arrays sao exibidos");
+        System.out.println();
+        System.out.println("Estudo comparativo concluido com sucesso!");
+    }
+
+    /**
+     * Executa teste de algoritmo e salva os arrays original e ordenado
+     */
+    private PerformanceResult testAlgorithmAndSaveArrays(SortingAlgorithm algorithm, DataType dataType,
+                                                        int size, int[] testData) {
+        // Aquece a JVM
+        warmUpAlgorithm(algorithm, testData);
+
+        long startTime = System.nanoTime();
+        boolean successful = true;
+        int[] sortedArray = null;
+
+        try {
+            sortedArray = algorithm.sort(testData);
+            // Verifica se o resultado esta ordenado
+            if (!isArraySorted(sortedArray)) {
+                successful = false;
+            }
+        } catch (Exception e) {
+            successful = false;
+        }
+
+        long endTime = System.nanoTime();
+        long executionTime = endTime - startTime;
+
+        // Salva o array ordenado (mesmo se houver erro)
+        if (sortedArray != null) {
+            arrayExporter.saveSortedArray(algorithm.getName(), dataType, size, sortedArray);
+        }
+
+        return new PerformanceResult(
+            algorithm.getName(),
+            dataType.getDescription(),
+            size,
+            executionTime,
+            successful
+        );
+    }
+
+    /**
+     * Aquece a JVM executando o algoritmo algumas vezes
+     */
+    private void warmUpAlgorithm(SortingAlgorithm algorithm, int[] testData) {
+        for (int i = 0; i < 3; i++) {
+            try {
+                algorithm.sort(testData.clone());
+            } catch (Exception e) {
+                // Ignora excecoes durante o aquecimento
+            }
+        }
+    }
+
+    /**
+     * Verifica se um array esta ordenado
+     */
+    private boolean isArraySorted(int[] array) {
+        if (array == null || array.length <= 1) {
+            return true;
+        }
+
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < array[i - 1]) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -110,7 +212,7 @@ public class QuickSortComparativeStudy {
     /**
      * Executa analise especifica do pior caso
      */
-    private void executeWorstCaseAnalysis(List<SortingAlgorithm> algorithms) {
+    private void executeWorstCaseAnalysis(List<SortingAlgorithm> algorithms, List<PerformanceResult> allResults) {
         System.out.println("=== ANALISE DO PIOR CASO ===");
         System.out.println();
 
@@ -119,14 +221,22 @@ public class QuickSortComparativeStudy {
         System.out.println("Testando com arrays que forcam o pior caso do Quicksort:");
         System.out.println();
 
+        List<PerformanceResult> worstCaseResults = new ArrayList<>();
+
         for (int size : worstCaseSizes) {
             System.out.println("Tamanho: " + size);
 
+            // Gera array do pior caso
+            int[] worstCaseArray = testDataGenerator.generateData(DataType.WORST_CASE, size);
+            arrayExporter.saveOriginalArray(DataType.WORST_CASE, size, worstCaseArray);
+
             for (SortingAlgorithm algorithm : algorithms) {
                 try {
-                    PerformanceResult result = performanceTester.testAlgorithm(
-                        algorithm, DataType.WORST_CASE, size
+                    PerformanceResult result = testAlgorithmAndSaveArrays(
+                        algorithm, DataType.WORST_CASE, size, worstCaseArray.clone()
                     );
+                    worstCaseResults.add(result);
+                    allResults.add(result);
 
                     System.out.printf("  %s: %.2f ms (Sucesso: %s)%n",
                         result.getAlgorithmName(),
@@ -142,5 +252,8 @@ public class QuickSortComparativeStudy {
             }
             System.out.println();
         }
+
+        // Salva resultados da analise do pior caso
+        arrayExporter.saveTestResults(worstCaseResults, "Analise_Pior_Caso", DataType.WORST_CASE);
     }
 }
