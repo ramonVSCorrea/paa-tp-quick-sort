@@ -9,14 +9,24 @@ public class PerformanceResult {
     private final int arraySize;
     private final long executionTimeNanos;
     private final boolean successful;
+    private final long comparisons;
+    private final long swaps;
 
     public PerformanceResult(String algorithmName, String dataType, int arraySize,
-                           long executionTimeNanos, boolean successful) {
+                           long executionTimeNanos, boolean successful, long comparisons, long swaps) {
         this.algorithmName = algorithmName;
         this.dataType = dataType;
         this.arraySize = arraySize;
         this.executionTimeNanos = executionTimeNanos;
         this.successful = successful;
+        this.comparisons = comparisons;
+        this.swaps = swaps;
+    }
+
+    // Construtor para compatibilidade com codigo antigo
+    public PerformanceResult(String algorithmName, String dataType, int arraySize,
+                           long executionTimeNanos, boolean successful) {
+        this(algorithmName, dataType, arraySize, executionTimeNanos, successful, 0, 0);
     }
 
     public String getAlgorithmName() {
@@ -43,9 +53,17 @@ public class PerformanceResult {
         return successful;
     }
 
+    public long getComparisons() {
+        return comparisons;
+    }
+
+    public long getSwaps() {
+        return swaps;
+    }
+
     @Override
     public String toString() {
-        return String.format("%s | %s | Tamanho: %d | Tempo: %.2f ms | Sucesso: %s",
-                algorithmName, dataType, arraySize, getExecutionTimeMillis(), successful);
+        return String.format("%s | %s | Tamanho: %d | Tempo: %.2f ms | Comp: %d | Trocas: %d | Sucesso: %s",
+                algorithmName, dataType, arraySize, getExecutionTimeMillis(), comparisons, swaps, successful);
     }
 }

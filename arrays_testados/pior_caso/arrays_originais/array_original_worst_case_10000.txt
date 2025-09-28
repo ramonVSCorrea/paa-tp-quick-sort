@@ -3,7 +3,7 @@ ARRAY ORIGINAL TESTADO
 ========================================
 Tipo: Pior Caso
 Tamanho: 10000 elementos
-Data/Hora: 28/09/2025 12:19:47
+Data/Hora: 28/09/2025 15:29:50
 ----------------------------------------
 Elementos:
 [0] = 0

@@ -6,6 +6,7 @@ import paa.sort.domain.algorithms.HybridQuickSort;
 import paa.sort.domain.algorithms.ImprovedHybridQuickSort;
 import paa.sort.domain.performance.PerformanceTester;
 import paa.sort.domain.performance.PerformanceResult;
+import paa.sort.domain.performance.SortingMetrics;
 import paa.sort.domain.performance.ThresholdOptimizer;
 import paa.sort.domain.testdata.DataType;
 import paa.sort.domain.testdata.TestDataGenerator;
@@ -23,6 +24,10 @@ public class QuickSortComparativeStudy {
     private final ArrayExporter arrayExporter;
     private final TestDataGenerator testDataGenerator;
 
+    // CONFIGURACAO: Numero de execucoes para obter medias confiaveis
+    private static final int MULTIPLE_EXECUTIONS = 5;
+    private static final int WARMUP_EXECUTIONS = 3;
+
     public QuickSortComparativeStudy() {
         this.performanceTester = new PerformanceTester();
         this.thresholdOptimizer = new ThresholdOptimizer();
@@ -35,6 +40,7 @@ public class QuickSortComparativeStudy {
      */
     public void executeCompleteStudy() {
         System.out.println("=== ESTUDO COMPARATIVO DE ALGORITMOS QUICKSORT ===");
+        System.out.println("Configuracao: " + MULTIPLE_EXECUTIONS + " execucoes por teste + " + WARMUP_EXECUTIONS + " aquecimentos");
         System.out.println("Gerando arquivos .txt organizados por tipo de dados...");
         System.out.println();
 
@@ -73,6 +79,7 @@ public class QuickSortComparativeStudy {
 
             for (int size : testSizes) {
                 System.out.println("Tamanho do array: " + size);
+                System.out.println("Executando " + MULTIPLE_EXECUTIONS + " vezes cada algoritmo...");
 
                 // Gera o array original e salva
                 int[] originalArray = testDataGenerator.generateData(dataType, size);
@@ -81,22 +88,23 @@ public class QuickSortComparativeStudy {
                 List<PerformanceResult> results = new ArrayList<>();
 
                 for (SortingAlgorithm algorithm : algorithms) {
-                    // Executa o teste e mede performance
-                    PerformanceResult result = testAlgorithmAndSaveArrays(
-                        algorithm, dataType, size, originalArray.clone()
+                    // MUDANCA PRINCIPAL: Executa multiplas vezes e calcula medias
+                    PerformanceResult result = testAlgorithmMultipleTimesAndSaveArrays(
+                        algorithm, dataType, size, originalArray, MULTIPLE_EXECUTIONS
                     );
                     results.add(result);
                     allResults.add(result);
                     typeResults.add(result);
 
-                    System.out.printf("  %s: %.2f ms%n",
-                        result.getAlgorithmName(), result.getExecutionTimeMillis());
+                    System.out.printf("  %s: %.2f ms | Comp: %d | Trocas: %d%n",
+                        result.getAlgorithmName(), result.getExecutionTimeMillis(),
+                        result.getComparisons(), result.getSwaps());
                 }
 
                 // Encontra o melhor resultado
                 PerformanceResult fastest = results.stream()
-                    .min((r1, r2) -> Long.compare(r1.getExecutionTimeNanos(), r2.getExecutionTimeNanos()))
-                    .orElse(null);
+                        .min((r1, r2) -> Long.compare(r1.getExecutionTimeNanos(), r2.getExecutionTimeNanos()))
+                        .orElse(null);
 
                 if (fastest != null) {
                     System.out.printf("  -> Melhor: %s%n", fastest.getAlgorithmName());
@@ -129,55 +137,86 @@ public class QuickSortComparativeStudy {
     }
 
     /**
-     * Executa teste de algoritmo e salva os arrays original e ordenado
+     * NOVO METODO: Executa teste multiplas vezes e calcula medias confiaveis
      */
-    private PerformanceResult testAlgorithmAndSaveArrays(SortingAlgorithm algorithm, DataType dataType,
-                                                        int size, int[] testData) {
-        // Aquece a JVM
-        warmUpAlgorithm(algorithm, testData);
+    private PerformanceResult testAlgorithmMultipleTimesAndSaveArrays(
+            SortingAlgorithm algorithm, DataType dataType, int size,
+            int[] originalArray, int iterations) {
 
-        long startTime = System.nanoTime();
-        boolean successful = true;
-        int[] sortedArray = null;
+        // Lista para armazenar resultados de todas as execucoes
+        List<Long> executionTimes = new ArrayList<>();
+        List<Long> comparisonCounts = new ArrayList<>();
+        List<Long> swapCounts = new ArrayList<>();
+        boolean allSuccessful = true;
+        int[] finalSortedArray = null;
 
-        try {
-            sortedArray = algorithm.sort(testData);
-            // Verifica se o resultado esta ordenado
-            if (!isArraySorted(sortedArray)) {
-                successful = false;
+        // Aquecimento da JVM
+        for (int i = 0; i < WARMUP_EXECUTIONS; i++) {
+            try {
+                algorithm.sort(originalArray.clone());
+            } catch (Exception e) {
+                // Ignora excecoes durante aquecimento
             }
-        } catch (Exception e) {
-            successful = false;
         }
 
-        long endTime = System.nanoTime();
-        long executionTime = endTime - startTime;
+        // Executa o algoritmo multiplas vezes com as MESMAS massas de dados
+        for (int i = 0; i < iterations; i++) {
+            SortingMetrics metrics = new SortingMetrics();
+            int[] testData = originalArray.clone(); // MESMA massa de dados
 
-        // Salva o array ordenado (mesmo se houver erro)
-        if (sortedArray != null) {
-            arrayExporter.saveSortedArray(algorithm.getName(), dataType, size, sortedArray);
+            long startTime = System.nanoTime();
+            boolean successful = true;
+            int[] sortedArray = null;
+
+            try {
+                sortedArray = algorithm.sort(testData, metrics);
+
+                // Verifica se o resultado esta ordenado
+                if (!isArraySorted(sortedArray)) {
+                    successful = false;
+                }
+
+                // Salva o array da primeira execucao bem-sucedida
+                if (successful && finalSortedArray == null) {
+                    finalSortedArray = sortedArray;
+                }
+
+            } catch (Exception e) {
+                successful = false;
+            }
+
+            long endTime = System.nanoTime();
+            long executionTime = endTime - startTime;
+
+            // Coleta metricas desta execucao
+            executionTimes.add(executionTime);
+            comparisonCounts.add(metrics.getComparisons());
+            swapCounts.add(metrics.getSwaps());
+
+            if (!successful) {
+                allSuccessful = false;
+            }
+        }
+
+        // Calcula medias
+        long averageTime = executionTimes.stream().mapToLong(Long::longValue).sum() / iterations;
+        long averageComparisons = comparisonCounts.stream().mapToLong(Long::longValue).sum() / iterations;
+        long averageSwaps = swapCounts.stream().mapToLong(Long::longValue).sum() / iterations;
+
+        // Salva o array ordenado (da primeira execucao bem-sucedida)
+        if (finalSortedArray != null) {
+            arrayExporter.saveSortedArray(algorithm.getName(), dataType, size, finalSortedArray);
         }
 
         return new PerformanceResult(
             algorithm.getName(),
             dataType.getDescription(),
             size,
-            executionTime,
-            successful
+            averageTime,
+            allSuccessful,
+            averageComparisons,
+            averageSwaps
         );
-    }
-
-    /**
-     * Aquece a JVM executando o algoritmo algumas vezes
-     */
-    private void warmUpAlgorithm(SortingAlgorithm algorithm, int[] testData) {
-        for (int i = 0; i < 3; i++) {
-            try {
-                algorithm.sort(testData.clone());
-            } catch (Exception e) {
-                // Ignora excecoes durante o aquecimento
-            }
-        }
     }
 
     /**
@@ -219,6 +258,7 @@ public class QuickSortComparativeStudy {
         int[] worstCaseSizes = {100, 200, 500, 1000};
 
         System.out.println("Testando com arrays que forcam o pior caso do Quicksort:");
+        System.out.println("Executando " + MULTIPLE_EXECUTIONS + " vezes cada teste...");
         System.out.println();
 
         List<PerformanceResult> worstCaseResults = new ArrayList<>();
@@ -232,15 +272,18 @@ public class QuickSortComparativeStudy {
 
             for (SortingAlgorithm algorithm : algorithms) {
                 try {
-                    PerformanceResult result = testAlgorithmAndSaveArrays(
-                        algorithm, DataType.WORST_CASE, size, worstCaseArray.clone()
+                    // MUDANCA: Usa multiplas execucoes tambem no pior caso
+                    PerformanceResult result = testAlgorithmMultipleTimesAndSaveArrays(
+                        algorithm, DataType.WORST_CASE, size, worstCaseArray, MULTIPLE_EXECUTIONS
                     );
                     worstCaseResults.add(result);
                     allResults.add(result);
 
-                    System.out.printf("  %s: %.2f ms (Sucesso: %s)%n",
+                    System.out.printf("  %s: %.2f ms | Comp: %d | Trocas: %d (Sucesso: %s)%n",
                         result.getAlgorithmName(),
                         result.getExecutionTimeMillis(),
+                        result.getComparisons(),
+                        result.getSwaps(),
                         result.isSuccessful() ? "Sim" : "Nao"
                     );
 

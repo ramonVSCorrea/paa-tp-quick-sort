@@ -3,7 +3,7 @@ ARRAY ORIGINAL TESTADO
 ========================================
 Tipo: Ordenado
 Tamanho: 1000 elementos
-Data/Hora: 28/09/2025 12:19:44
+Data/Hora: 28/09/2025 15:29:45
 ----------------------------------------
 Elementos:
 [0] = 0

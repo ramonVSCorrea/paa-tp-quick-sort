@@ -1,5 +1,7 @@
 package paa.sort.domain;
 
+import paa.sort.domain.performance.SortingMetrics;
+
 /**
  * Interface para algoritmos de ordenacao
  */
@@ -10,6 +12,14 @@ public interface SortingAlgorithm {
      * @return Array ordenado
      */
     int[] sort(int[] array);
+
+    /**
+     * Ordena um array de inteiros coletando metricas de performance
+     * @param array Array a ser ordenado
+     * @param metrics Objeto para coletar metricas de comparacoes e trocas
+     * @return Array ordenado
+     */
+    int[] sort(int[] array, SortingMetrics metrics);
 
     /**
      * Retorna o nome do algoritmo

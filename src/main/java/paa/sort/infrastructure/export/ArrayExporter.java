@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -147,6 +148,8 @@ public class ArrayExporter {
                 writer.write(String.format("Tamanho do Array: %d elementos\n", result.getArraySize()));
                 writer.write(String.format("Tempo de Execucao: %.3f ms (%.0f ns)\n",
                     result.getExecutionTimeMillis(), (double)result.getExecutionTimeNanos()));
+                writer.write(String.format("Comparacoes: %d\n", result.getComparisons()));
+                writer.write(String.format("Trocas/Movimentos: %d\n", result.getSwaps()));
                 writer.write(String.format("Status: %s\n", result.isSuccessful() ? "SUCESSO" : "FALHA"));
                 writer.write("----------------------------------------\n");
             }
@@ -174,17 +177,26 @@ public class ArrayExporter {
 
             // Agrupa por tipo de dados
             String currentDataType = "";
+            List<PerformanceResult> currentTypeResults = new ArrayList<>();
+
             for (PerformanceResult result : allResults) {
                 if (!result.getDataType().equals(currentDataType)) {
+                    // Processa o tipo anterior (se houver)
+                    if (!currentTypeResults.isEmpty()) {
+                        writeResultsForDataType(writer, currentDataType, currentTypeResults);
+                    }
+
+                    // Inicia novo tipo
                     currentDataType = result.getDataType();
+                    currentTypeResults.clear();
                     writer.write(String.format("\n=== RESULTADOS PARA: %s ===\n", currentDataType.toUpperCase()));
                 }
+                currentTypeResults.add(result);
+            }
 
-                writer.write(String.format("Tamanho: %d | %s: %.3f ms | %s\n",
-                    result.getArraySize(),
-                    result.getAlgorithmName(),
-                    result.getExecutionTimeMillis(),
-                    result.isSuccessful() ? "OK" : "ERRO"));
+            // Processa o ultimo tipo
+            if (!currentTypeResults.isEmpty()) {
+                writeResultsForDataType(writer, currentDataType, currentTypeResults);
             }
 
             writer.write("\n========================================\n");
@@ -204,6 +216,88 @@ public class ArrayExporter {
         } catch (IOException e) {
             System.err.println("Erro ao salvar resumo geral: " + e.getMessage());
         }
+    }
+
+    /**
+     * Escreve os resultados para um tipo de dados especifico, destacando o melhor
+     */
+    private void writeResultsForDataType(FileWriter writer, String dataType, List<PerformanceResult> results) throws IOException {
+        // Agrupa por tamanho
+        int currentSize = -1;
+        List<PerformanceResult> sizeResults = new ArrayList<>();
+
+        for (PerformanceResult result : results) {
+            if (result.getArraySize() != currentSize) {
+                // Processa o tamanho anterior (se houver)
+                if (!sizeResults.isEmpty()) {
+                    writeBestResultForSize(writer, currentSize, sizeResults);
+                }
+
+                // Inicia novo tamanho
+                currentSize = result.getArraySize();
+                sizeResults.clear();
+            }
+            sizeResults.add(result);
+        }
+
+        // Processa o ultimo tamanho
+        if (!sizeResults.isEmpty()) {
+            writeBestResultForSize(writer, currentSize, sizeResults);
+        }
+    }
+
+    /**
+     * Escreve os resultados para um tamanho especifico, destacando o melhor
+     */
+    private void writeBestResultForSize(FileWriter writer, int size, List<PerformanceResult> results) throws IOException {
+        writer.write(String.format("\nTamanho: %d elementos\n", size));
+        writer.write("----------------------------------------\n");
+
+        // Encontra o melhor por tempo
+        PerformanceResult bestByTime = results.stream()
+            .min((r1, r2) -> Long.compare(r1.getExecutionTimeNanos(), r2.getExecutionTimeNanos()))
+            .orElse(null);
+
+        // Encontra o melhor por comparacoes
+        PerformanceResult bestByComparisons = results.stream()
+            .min((r1, r2) -> Long.compare(r1.getComparisons(), r2.getComparisons()))
+            .orElse(null);
+
+        // Encontra o melhor por trocas
+        PerformanceResult bestBySwaps = results.stream()
+            .min((r1, r2) -> Long.compare(r1.getSwaps(), r2.getSwaps()))
+            .orElse(null);
+
+        // Escreve todos os resultados com indicadores
+        for (PerformanceResult result : results) {
+            String prefix = "  ";
+            if (result == bestByTime) {
+                prefix = "★ ";  // Estrela para melhor tempo
+            }
+
+            writer.write(String.format("%s%s\n", prefix, result.getAlgorithmName()));
+            writer.write(String.format("    Tempo: %.3f ms | Comparacoes: %d | Trocas: %d | Status: %s\n",
+                result.getExecutionTimeMillis(),
+                result.getComparisons(),
+                result.getSwaps(),
+                result.isSuccessful() ? "OK" : "ERRO"));
+        }
+
+        // Resumo dos melhores
+        writer.write("\nMELHORES NESTE TAMANHO:\n");
+        if (bestByTime != null) {
+            writer.write(String.format("  Melhor Tempo: %s (%.3f ms)\n",
+                bestByTime.getAlgorithmName(), bestByTime.getExecutionTimeMillis()));
+        }
+        if (bestByComparisons != null) {
+            writer.write(String.format("  Menos Comparacoes: %s (%d comparacoes)\n",
+                bestByComparisons.getAlgorithmName(), bestByComparisons.getComparisons()));
+        }
+        if (bestBySwaps != null) {
+            writer.write(String.format("  Menos Trocas: %s (%d trocas)\n",
+                bestBySwaps.getAlgorithmName(), bestBySwaps.getSwaps()));
+        }
+        writer.write("\n");
     }
 
     /**

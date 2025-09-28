@@ -2,67 +2,91 @@
 RESULTADOS DOS TESTES DE PERFORMANCE
 ========================================
 Tipo de Teste: Analise_Pior_Caso
-Data/Hora: 28/09/2025 12:19:48
+Data/Hora: 28/09/2025 15:29:52
 Total de Testes: 12
 ----------------------------------------
 
 Algoritmo: Quicksort Recursivo
 Tamanho do Array: 100 elementos
-Tempo de Execucao: 0,015 ms (14900 ns)
+Tempo de Execucao: 0,014 ms (13660 ns)
+Comparacoes: 5149
+Trocas/Movimentos: 0
 Status: SUCESSO
 ----------------------------------------
-Algoritmo: Quicksort Hibrido (M=75)
+Algoritmo: Quicksort Hibrido (M=50)
 Tamanho do Array: 100 elementos
-Tempo de Execucao: 0,007 ms (6700 ns)
+Tempo de Execucao: 0,010 ms (9540 ns)
+Comparacoes: 3926
+Trocas/Movimentos: 0
 Status: SUCESSO
 ----------------------------------------
-Algoritmo: Quicksort Hibrido Melhorado (M=75, Mediana-de-3)
+Algoritmo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
 Tamanho do Array: 100 elementos
-Tempo de Execucao: 0,003 ms (2800 ns)
+Tempo de Execucao: 0,001 ms (1340 ns)
+Comparacoes: 205
+Trocas/Movimentos: 2
 Status: SUCESSO
 ----------------------------------------
 Algoritmo: Quicksort Recursivo
 Tamanho do Array: 200 elementos
-Tempo de Execucao: 0,059 ms (58500 ns)
+Tempo de Execucao: 0,050 ms (50160 ns)
+Comparacoes: 20299
+Trocas/Movimentos: 0
 Status: SUCESSO
 ----------------------------------------
-Algoritmo: Quicksort Hibrido (M=75)
+Algoritmo: Quicksort Hibrido (M=50)
 Tamanho do Array: 200 elementos
-Tempo de Execucao: 0,052 ms (52000 ns)
+Tempo de Execucao: 0,043 ms (43020 ns)
+Comparacoes: 19176
+Trocas/Movimentos: 0
 Status: SUCESSO
 ----------------------------------------
-Algoritmo: Quicksort Hibrido Melhorado (M=75, Mediana-de-3)
+Algoritmo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
 Tamanho do Array: 200 elementos
-Tempo de Execucao: 0,006 ms (5800 ns)
+Tempo de Execucao: 0,005 ms (4860 ns)
+Comparacoes: 612
+Trocas/Movimentos: 6
 Status: SUCESSO
 ----------------------------------------
 Algoritmo: Quicksort Recursivo
 Tamanho do Array: 500 elementos
-Tempo de Execucao: 0,314 ms (314200 ns)
+Tempo de Execucao: 0,278 ms (277760 ns)
+Comparacoes: 125749
+Trocas/Movimentos: 0
 Status: SUCESSO
 ----------------------------------------
-Algoritmo: Quicksort Hibrido (M=75)
+Algoritmo: Quicksort Hibrido (M=50)
 Tamanho do Array: 500 elementos
-Tempo de Execucao: 0,300 ms (300200 ns)
+Tempo de Execucao: 0,271 ms (270840 ns)
+Comparacoes: 124926
+Trocas/Movimentos: 0
 Status: SUCESSO
 ----------------------------------------
-Algoritmo: Quicksort Hibrido Melhorado (M=75, Mediana-de-3)
+Algoritmo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
 Tamanho do Array: 500 elementos
-Tempo de Execucao: 0,006 ms (5700 ns)
+Tempo de Execucao: 0,006 ms (5660 ns)
+Comparacoes: 2550
+Trocas/Movimentos: 30
 Status: SUCESSO
 ----------------------------------------
 Algoritmo: Quicksort Recursivo
 Tamanho do Array: 1000 elementos
-Tempo de Execucao: 1,231 ms (1231200 ns)
+Tempo de Execucao: 1,088 ms (1088440 ns)
+Comparacoes: 501499
+Trocas/Movimentos: 0
 Status: SUCESSO
 ----------------------------------------
-Algoritmo: Quicksort Hibrido (M=75)
+Algoritmo: Quicksort Hibrido (M=50)
 Tamanho do Array: 1000 elementos
-Tempo de Execucao: 1,206 ms (1205900 ns)
+Tempo de Execucao: 1,073 ms (1072540 ns)
+Comparacoes: 501176
+Trocas/Movimentos: 0
 Status: SUCESSO
 ----------------------------------------
-Algoritmo: Quicksort Hibrido Melhorado (M=75, Mediana-de-3)
+Algoritmo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
 Tamanho do Array: 1000 elementos
-Tempo de Execucao: 0,011 ms (10700 ns)
+Tempo de Execucao: 0,013 ms (12960 ns)
+Comparacoes: 6099
+Trocas/Movimentos: 62
 Status: SUCESSO
 ----------------------------------------
