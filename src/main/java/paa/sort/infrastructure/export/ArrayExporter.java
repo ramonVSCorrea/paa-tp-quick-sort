@@ -2,6 +2,7 @@ package paa.sort.infrastructure.export;
 
 import paa.sort.domain.performance.PerformanceResult;
 import paa.sort.domain.testdata.DataType;
+import paa.sort.domain.validation.ArrayValidator;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -117,7 +118,7 @@ public class ArrayExporter {
             writer.write("\n");
             writer.write(LINE_SEPARATOR);
             writer.write("Verificacao: ");
-            ValidationStatus validationStatus = ValidationStatus.fromBoolean(isArraySorted(sortedArray));
+            ValidationStatus validationStatus = ValidationStatus.fromBoolean(ArrayValidator.isSorted(sortedArray));
             writer.write(validationStatus.getMessage());
             writer.write("\n");
 
@@ -315,19 +316,4 @@ public class ArrayExporter {
         writer.write(String.format(TOTAL_ELEMENTS_FORMAT, array.length));
     }
 
-    /**
-     * Verifica se o array esta ordenado
-     */
-    private boolean isArraySorted(int[] array) {
-        if (array == null || array.length <= 1) {
-            return true;
-        }
-
-        for (int currentIndex = 1; currentIndex < array.length; currentIndex++) {
-            if (array[currentIndex] < array[currentIndex - 1]) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

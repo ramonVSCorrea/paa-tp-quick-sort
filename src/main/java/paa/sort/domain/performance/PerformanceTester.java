@@ -3,6 +3,7 @@ package paa.sort.domain.performance;
 import paa.sort.domain.SortingAlgorithm;
 import paa.sort.domain.testdata.DataType;
 import paa.sort.domain.testdata.TestDataGenerator;
+import paa.sort.domain.validation.ArrayValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class PerformanceTester {
         try {
             int[] result = algorithm.sort(testData);
             // Verifica se o resultado esta ordenado
-            if (!isSorted(result)) {
+            if (!ArrayValidator.isSorted(result)) {
                 successful = false;
             }
         } catch (Exception e) {
@@ -91,19 +92,4 @@ public class PerformanceTester {
         }
     }
 
-    /**
-     * Verifica se um array esta ordenado
-     */
-    private boolean isSorted(int[] array) {
-        if (array == null || array.length <= 1) {
-            return true;
-        }
-
-        for (int i = 1; i < array.length; i++) {
-            if (array[i] < array[i - 1]) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

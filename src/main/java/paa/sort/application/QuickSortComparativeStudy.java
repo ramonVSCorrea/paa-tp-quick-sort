@@ -10,6 +10,7 @@ import paa.sort.domain.performance.SortingMetrics;
 import paa.sort.domain.performance.ThresholdOptimizer;
 import paa.sort.domain.testdata.DataType;
 import paa.sort.domain.testdata.TestDataGenerator;
+import paa.sort.domain.validation.ArrayValidator;
 import paa.sort.infrastructure.export.ArrayExporter;
 
 import java.util.ArrayList;
@@ -177,7 +178,7 @@ public class QuickSortComparativeStudy {
                 sortedArray = algorithm.sort(testData, metrics);
 
                 // Verifica se o resultado esta ordenado
-                if (!isArraySorted(sortedArray)) {
+                if (!ArrayValidator.isSorted(sortedArray)) {
                     successful = false;
                 }
 
@@ -224,21 +225,6 @@ public class QuickSortComparativeStudy {
         );
     }
 
-    /**
-     * Verifica se um array esta ordenado
-     */
-    private boolean isArraySorted(int[] array) {
-        if (array == null || array.length <= 1) {
-            return true;
-        }
-
-        for (int currentIndex = 1; currentIndex < array.length; currentIndex++) {
-            if (array[currentIndex] < array[currentIndex - 1]) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     /**
      * Cria as instancias dos algoritmos para comparacao
