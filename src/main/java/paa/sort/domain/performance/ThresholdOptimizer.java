@@ -10,6 +10,11 @@ import java.util.List;
  * Classe responsavel por determinar empiricamente o melhor threshold (M) para o Quicksort hibrido
  */
 public class ThresholdOptimizer {
+    private static final int[] DEFAULT_THRESHOLD_CANDIDATES = {5, 10, 15, 20, 25, 30, 40, 50, 75, 100};
+    private static final int THRESHOLD_MIN = 5;
+    private static final int THRESHOLD_MAX = 100;
+    private static final int THRESHOLD_STEP = 5;
+
     private final PerformanceTester performanceTester;
 
     public ThresholdOptimizer() {
@@ -27,9 +32,9 @@ public class ThresholdOptimizer {
         List<ThresholdResult> results = new ArrayList<>();
 
         // Testa diferentes valores de threshold
-        int[] thresholds = {5, 10, 15, 20, 25, 30, 40, 50, 75, 100};
+        int[] thresholdCandidates = DEFAULT_THRESHOLD_CANDIDATES;
 
-        for (int threshold : thresholds) {
+        for (int threshold : thresholdCandidates) {
             HybridQuickSort algorithm = new HybridQuickSort(threshold);
 
             // Testa com dados aleatorios

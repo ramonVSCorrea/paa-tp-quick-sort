@@ -4,6 +4,8 @@ package paa.sort.domain.performance;
  * Resultado de um teste de performance
  */
 public class PerformanceResult {
+    private static final double NANOS_TO_MILLIS = 1_000_000.0;
+
     private final String algorithmName;
     private final String dataType;
     private final int arraySize;
@@ -46,7 +48,7 @@ public class PerformanceResult {
     }
 
     public double getExecutionTimeMillis() {
-        return executionTimeNanos / 1_000_000.0;
+        return executionTimeNanos / NANOS_TO_MILLIS;
     }
 
     public boolean isSuccessful() {

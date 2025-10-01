@@ -25,14 +25,19 @@ public class QuickSortComparativeStudy {
     private final TestDataGenerator testDataGenerator;
 
     // CONFIGURACAO: Numero de execucoes para obter medias confiaveis
-    private static final int MULTIPLE_EXECUTIONS = 5;
-    private static final int WARMUP_EXECUTIONS = 3;
+    private static final int DEFAULT_MULTIPLE_EXECUTIONS = 5;
+    private static final int DEFAULT_WARMUP_EXECUTIONS = 3;
+    private static final int[] DEFAULT_TEST_SIZES = {100, 500, 1000, 2000, 5000, 10000};
+    private static final int[] WORST_CASE_TEST_SIZES = {100, 200, 500, 1000};
+    private static final int THRESHOLD_OPTIMIZATION_ARRAY_SIZE = 1000;
+    private static final int THRESHOLD_OPTIMIZATION_ITERATIONS = 10;
+    private static final long RANDOM_SEED = 42;
 
     public QuickSortComparativeStudy() {
         this.performanceTester = new PerformanceTester();
         this.thresholdOptimizer = new ThresholdOptimizer();
         this.arrayExporter = new ArrayExporter();
-        this.testDataGenerator = new TestDataGenerator(42);
+        this.testDataGenerator = new TestDataGenerator(RANDOM_SEED);
     }
 
     /**
@@ -40,7 +45,7 @@ public class QuickSortComparativeStudy {
      */
     public void executeCompleteStudy() {
         System.out.println("=== ESTUDO COMPARATIVO DE ALGORITMOS QUICKSORT ===");
-        System.out.println("Configuracao: " + MULTIPLE_EXECUTIONS + " execucoes por teste + " + WARMUP_EXECUTIONS + " aquecimentos");
+        System.out.println("Configuracao: " + DEFAULT_MULTIPLE_EXECUTIONS + " execucoes por teste + " + DEFAULT_WARMUP_EXECUTIONS + " aquecimentos");
         System.out.println("Gerando arquivos .txt organizados por tipo de dados...");
         System.out.println();
 
@@ -48,7 +53,7 @@ public class QuickSortComparativeStudy {
 
         // 1. Determina o threshold otimo
         ThresholdOptimizer.OptimizationResult optimization =
-            thresholdOptimizer.findOptimalThreshold(1000, 10);
+            thresholdOptimizer.findOptimalThreshold(THRESHOLD_OPTIMIZATION_ARRAY_SIZE, THRESHOLD_OPTIMIZATION_ITERATIONS);
         int optimalThreshold = optimization.getOptimalThreshold();
 
         System.out.println();
@@ -59,7 +64,7 @@ public class QuickSortComparativeStudy {
         List<SortingAlgorithm> algorithms = createAlgorithms(optimalThreshold);
 
         // 3. Define os tamanhos de teste
-        int[] testSizes = {100, 500, 1000, 2000, 5000, 10000};
+        int[] testSizes = DEFAULT_TEST_SIZES;
 
         // 4. Define os tipos de dados para teste
         DataType[] dataTypes = {
@@ -79,7 +84,7 @@ public class QuickSortComparativeStudy {
 
             for (int size : testSizes) {
                 System.out.println("Tamanho do array: " + size);
-                System.out.println("Executando " + MULTIPLE_EXECUTIONS + " vezes cada algoritmo...");
+                System.out.println("Executando " + DEFAULT_MULTIPLE_EXECUTIONS + " vezes cada algoritmo...");
 
                 // Gera o array original e salva
                 int[] originalArray = testDataGenerator.generateData(dataType, size);
@@ -90,7 +95,7 @@ public class QuickSortComparativeStudy {
                 for (SortingAlgorithm algorithm : algorithms) {
                     // MUDANCA PRINCIPAL: Executa multiplas vezes e calcula medias
                     PerformanceResult result = testAlgorithmMultipleTimesAndSaveArrays(
-                        algorithm, dataType, size, originalArray, MULTIPLE_EXECUTIONS
+                        algorithm, dataType, size, originalArray, DEFAULT_MULTIPLE_EXECUTIONS
                     );
                     results.add(result);
                     allResults.add(result);
@@ -151,7 +156,7 @@ public class QuickSortComparativeStudy {
         int[] finalSortedArray = null;
 
         // Aquecimento da JVM
-        for (int i = 0; i < WARMUP_EXECUTIONS; i++) {
+        for (int i = 0; i < DEFAULT_WARMUP_EXECUTIONS; i++) {
             try {
                 algorithm.sort(originalArray.clone());
             } catch (Exception e) {
@@ -255,10 +260,10 @@ public class QuickSortComparativeStudy {
         System.out.println("=== ANALISE DO PIOR CASO ===");
         System.out.println();
 
-        int[] worstCaseSizes = {100, 200, 500, 1000};
+        int[] worstCaseSizes = WORST_CASE_TEST_SIZES;
 
         System.out.println("Testando com arrays que forcam o pior caso do Quicksort:");
-        System.out.println("Executando " + MULTIPLE_EXECUTIONS + " vezes cada teste...");
+        System.out.println("Executando " + DEFAULT_MULTIPLE_EXECUTIONS + " vezes cada teste...");
         System.out.println();
 
         List<PerformanceResult> worstCaseResults = new ArrayList<>();
@@ -274,7 +279,7 @@ public class QuickSortComparativeStudy {
                 try {
                     // MUDANCA: Usa multiplas execucoes tambem no pior caso
                     PerformanceResult result = testAlgorithmMultipleTimesAndSaveArrays(
-                        algorithm, DataType.WORST_CASE, size, worstCaseArray, MULTIPLE_EXECUTIONS
+                        algorithm, DataType.WORST_CASE, size, worstCaseArray, DEFAULT_MULTIPLE_EXECUTIONS
                     );
                     worstCaseResults.add(result);
                     allResults.add(result);

@@ -17,10 +17,19 @@ import java.util.List;
  * Classe responsavel por exportar arrays testados e resultados para arquivos .txt
  */
 public class ArrayExporter {
+    private static final String ARRAY_ELEMENT_FORMAT = "[%d] = %d\n";
+    private static final String TOTAL_ELEMENTS_FORMAT = "\nTotal de elementos: %d\n";
+    private static final String SORTED_CORRECTLY_MESSAGE = "ORDENADO CORRETAMENTE";
+    private static final String SORTING_ERROR_MESSAGE = "ERRO NA ORDENACAO";
+    private static final String HEADER_SEPARATOR = "========================================\n";
+    private static final String LINE_SEPARATOR = "----------------------------------------\n";
+    private static final String DATE_TIME_FORMAT = "dd/MM/yyyy HH:mm:ss";
+    private static final String DEFAULT_BASE_DIRECTORY = "arrays_testados";
+
     private final String baseOutputDirectory;
 
     public ArrayExporter() {
-        this.baseOutputDirectory = "arrays_testados";
+        this.baseOutputDirectory = DEFAULT_BASE_DIRECTORY;
         createDirectoryStructure();
     }
 
@@ -69,14 +78,14 @@ public class ArrayExporter {
             baseOutputDirectory, dirName, dataType.name().toLowerCase(), size);
 
         try (FileWriter writer = new FileWriter(filename)) {
-            writer.write("========================================\n");
+            writer.write(HEADER_SEPARATOR);
             writer.write("ARRAY ORIGINAL TESTADO\n");
-            writer.write("========================================\n");
+            writer.write(HEADER_SEPARATOR);
             writer.write(String.format("Tipo: %s\n", dataType.getDescription()));
             writer.write(String.format("Tamanho: %d elementos\n", size));
             writer.write(String.format("Data/Hora: %s\n",
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))));
-            writer.write("----------------------------------------\n");
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT))));
+            writer.write(LINE_SEPARATOR);
             writer.write("Elementos:\n");
 
             writeAllArrayElements(writer, originalArray);
@@ -101,23 +110,24 @@ public class ArrayExporter {
             baseOutputDirectory, dirName, cleanAlgorithmName, dataType.name().toLowerCase(), size);
 
         try (FileWriter writer = new FileWriter(filename)) {
-            writer.write("========================================\n");
+            writer.write(HEADER_SEPARATOR);
             writer.write("ARRAY APOS ORDENACAO\n");
-            writer.write("========================================\n");
+            writer.write(HEADER_SEPARATOR);
             writer.write(String.format("Algoritmo: %s\n", algorithmName));
             writer.write(String.format("Tipo Original: %s\n", dataType.getDescription()));
             writer.write(String.format("Tamanho: %d elementos\n", size));
             writer.write(String.format("Data/Hora: %s\n",
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))));
-            writer.write("----------------------------------------\n");
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT))));
+            writer.write(LINE_SEPARATOR);
             writer.write("Elementos ordenados:\n");
 
             writeAllArrayElements(writer, sortedArray);
 
             // Verificacao de ordenacao
-            writer.write("\n----------------------------------------\n");
+            writer.write("\n");
+            writer.write(LINE_SEPARATOR);
             writer.write("Verificacao: ");
-            writer.write(isArraySorted(sortedArray) ? "ORDENADO CORRETAMENTE" : "ERRO NA ORDENACAO");
+            writer.write(isArraySorted(sortedArray) ? SORTED_CORRECTLY_MESSAGE : SORTING_ERROR_MESSAGE);
             writer.write("\n");
 
         } catch (IOException e) {
@@ -134,14 +144,15 @@ public class ArrayExporter {
             baseOutputDirectory, dirName, testType.toLowerCase().replace(" ", "_"));
 
         try (FileWriter writer = new FileWriter(filename)) {
-            writer.write("========================================\n");
+            writer.write(HEADER_SEPARATOR);
             writer.write("RESULTADOS DOS TESTES DE PERFORMANCE\n");
-            writer.write("========================================\n");
+            writer.write(HEADER_SEPARATOR);
             writer.write(String.format("Tipo de Teste: %s\n", testType));
             writer.write(String.format("Data/Hora: %s\n",
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))));
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT))));
             writer.write(String.format("Total de Testes: %d\n", results.size()));
-            writer.write("----------------------------------------\n\n");
+            writer.write(LINE_SEPARATOR);
+            writer.write("\n");
 
             for (PerformanceResult result : results) {
                 writer.write(String.format("Algoritmo: %s\n", result.getAlgorithmName()));
@@ -151,7 +162,7 @@ public class ArrayExporter {
                 writer.write(String.format("Comparacoes: %d\n", result.getComparisons()));
                 writer.write(String.format("Trocas/Movimentos: %d\n", result.getSwaps()));
                 writer.write(String.format("Status: %s\n", result.isSuccessful() ? "SUCESSO" : "FALHA"));
-                writer.write("----------------------------------------\n");
+                writer.write(LINE_SEPARATOR);
             }
 
         } catch (IOException e) {
@@ -166,14 +177,15 @@ public class ArrayExporter {
         String filename = String.format("%s/resumo_geral.txt", baseOutputDirectory);
 
         try (FileWriter writer = new FileWriter(filename)) {
-            writer.write("========================================\n");
+            writer.write(HEADER_SEPARATOR);
             writer.write("RESUMO GERAL DO ESTUDO COMPARATIVO\n");
-            writer.write("========================================\n");
+            writer.write(HEADER_SEPARATOR);
             writer.write(String.format("Data/Hora: %s\n",
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))));
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT))));
             writer.write(String.format("Threshold Otimo Determinado: M=%d\n", optimalThreshold));
             writer.write(String.format("Total de Testes Realizados: %d\n", allResults.size()));
-            writer.write("----------------------------------------\n\n");
+            writer.write(LINE_SEPARATOR);
+            writer.write("\n");
 
             // Agrupa por tipo de dados
             String currentDataType = "";
@@ -199,7 +211,8 @@ public class ArrayExporter {
                 writeResultsForDataType(writer, currentDataType, currentTypeResults);
             }
 
-            writer.write("\n========================================\n");
+            writer.write("\n");
+            writer.write(HEADER_SEPARATOR);
             writer.write("ESTRUTURA DOS ARQUIVOS GERADOS:\n");
             writer.write("arrays_testados/\n");
             writer.write("|-- aleatorio/\n");
@@ -211,7 +224,7 @@ public class ArrayExporter {
             writer.write("|   |-- arrays_ordenados/\n");
             writer.write("|   |-- resultados/\n");
             writer.write("|-- ... (outros tipos)\n");
-            writer.write("========================================\n");
+            writer.write(HEADER_SEPARATOR);
 
         } catch (IOException e) {
             System.err.println("Erro ao salvar resumo geral: " + e.getMessage());
@@ -251,7 +264,7 @@ public class ArrayExporter {
      */
     private void writeBestResultForSize(FileWriter writer, int size, List<PerformanceResult> results) throws IOException {
         writer.write(String.format("\nTamanho: %d elementos\n", size));
-        writer.write("----------------------------------------\n");
+        writer.write(LINE_SEPARATOR);
 
         // Encontra o melhor por tempo
         PerformanceResult bestByTime = results.stream()
@@ -305,10 +318,10 @@ public class ArrayExporter {
      */
     private void writeAllArrayElements(FileWriter writer, int[] array) throws IOException {
         for (int i = 0; i < array.length; i++) {
-            writer.write(String.format("[%d] = %d\n", i, array[i]));
+            writer.write(String.format(ARRAY_ELEMENT_FORMAT, i, array[i]));
         }
 
-        writer.write(String.format("\nTotal de elementos: %d\n", array.length));
+        writer.write(String.format(TOTAL_ELEMENTS_FORMAT, array.length));
     }
 
     /**
