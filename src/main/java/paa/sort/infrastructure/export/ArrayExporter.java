@@ -19,8 +19,6 @@ import java.util.List;
 public class ArrayExporter {
     private static final String ARRAY_ELEMENT_FORMAT = "[%d] = %d\n";
     private static final String TOTAL_ELEMENTS_FORMAT = "\nTotal de elementos: %d\n";
-    private static final String SORTED_CORRECTLY_MESSAGE = "ORDENADO CORRETAMENTE";
-    private static final String SORTING_ERROR_MESSAGE = "ERRO NA ORDENACAO";
     private static final String HEADER_SEPARATOR = "========================================\n";
     private static final String LINE_SEPARATOR = "----------------------------------------\n";
     private static final String DATE_TIME_FORMAT = "dd/MM/yyyy HH:mm:ss";
@@ -42,10 +40,8 @@ public class ArrayExporter {
             Files.createDirectories(Paths.get(baseOutputDirectory));
 
             // Subdiretorios para cada tipo de dados
-            String[] dataTypeDirectoryNames = {"aleatorio", "ordenado", "ordenado_inverso", "muitos_duplicados", "pior_caso"};
-
-            for (String dataTypeDirName : dataTypeDirectoryNames) {
-                String typeDirectoryPath = baseOutputDirectory + "/" + dataTypeDirName;
+            for (DirectoryName directoryName : DirectoryName.values()) {
+                String typeDirectoryPath = baseOutputDirectory + "/" + directoryName.getDirectoryName();
                 Files.createDirectories(Paths.get(typeDirectoryPath + "/arrays_originais"));
                 Files.createDirectories(Paths.get(typeDirectoryPath + "/arrays_ordenados"));
                 Files.createDirectories(Paths.get(typeDirectoryPath + "/resultados"));
@@ -60,13 +56,7 @@ public class ArrayExporter {
      * Converte DataType para nome de diretorio
      */
     private String getDirectoryName(DataType dataType) {
-        return switch (dataType) {
-            case RANDOM -> "aleatorio";
-            case SORTED -> "ordenado";
-            case REVERSE_SORTED -> "ordenado_inverso";
-            case MANY_DUPLICATES -> "muitos_duplicados";
-            case WORST_CASE -> "pior_caso";
-        };
+        return DirectoryName.fromDataType(dataType).getDirectoryName();
     }
 
     /**
@@ -127,7 +117,8 @@ public class ArrayExporter {
             writer.write("\n");
             writer.write(LINE_SEPARATOR);
             writer.write("Verificacao: ");
-            writer.write(isArraySorted(sortedArray) ? SORTED_CORRECTLY_MESSAGE : SORTING_ERROR_MESSAGE);
+            ValidationStatus validationStatus = ValidationStatus.fromBoolean(isArraySorted(sortedArray));
+            writer.write(validationStatus.getMessage());
             writer.write("\n");
 
         } catch (IOException e) {
