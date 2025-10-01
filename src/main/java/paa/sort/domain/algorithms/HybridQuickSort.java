@@ -32,8 +32,9 @@ public class HybridQuickSort implements SortingAlgorithm {
         metrics.incrementComparisons(); // Comparacao: low < high
         if (low < high) {
             // Se o subarray e pequeno, usa Insertion Sort
-            metrics.incrementComparisons(); // Comparacao: high - low + 1 <= threshold
-            if (high - low + 1 <= threshold) {
+            int subarraySize = high - low + 1;
+            metrics.incrementComparisons(); // Comparacao: subarraySize <= threshold
+            if (subarraySize <= threshold) {
                 InsertionSort.sort(array, low, high, metrics);
             } else {
                 int pivotIndex = partition(array, low, high, metrics);
@@ -44,26 +45,26 @@ public class HybridQuickSort implements SortingAlgorithm {
     }
 
     private int partition(int[] array, int low, int high, SortingMetrics metrics) {
-        int pivot = array[high]; // Ultimo elemento como pivo
-        int i = low - 1;
+        int pivotValue = array[high]; // Ultimo elemento como pivo
+        int partitionIndex = low - 1;
 
-        for (int j = low; j < high; j++) {
-            metrics.incrementComparisons(); // Comparacao: array[j] <= pivot
-            if (array[j] <= pivot) {
-                i++;
-                swap(array, i, j, metrics);
+        for (int currentIndex = low; currentIndex < high; currentIndex++) {
+            metrics.incrementComparisons(); // Comparacao: array[currentIndex] <= pivotValue
+            if (array[currentIndex] <= pivotValue) {
+                partitionIndex++;
+                swap(array, partitionIndex, currentIndex, metrics);
             }
         }
-        swap(array, i + 1, high, metrics);
-        return i + 1;
+        swap(array, partitionIndex + 1, high, metrics);
+        return partitionIndex + 1;
     }
 
-    private void swap(int[] array, int i, int j, SortingMetrics metrics) {
-        if (i != j) { // So conta como troca se as posicoes forem diferentes
+    private void swap(int[] array, int firstIndex, int secondIndex, SortingMetrics metrics) {
+        if (firstIndex != secondIndex) { // So conta como troca se as posicoes forem diferentes
             metrics.incrementSwaps();
-            int temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
+            int tempValue = array[firstIndex];
+            array[firstIndex] = array[secondIndex];
+            array[secondIndex] = tempValue;
         }
     }
 

@@ -29,35 +29,35 @@ public class ThresholdOptimizer {
         System.out.println("Tamanho do array: " + arraySize + ", Iteracoes: " + iterations);
         System.out.println();
 
-        List<ThresholdResult> results = new ArrayList<>();
+        List<ThresholdResult> allThresholdResults = new ArrayList<>();
 
         // Testa diferentes valores de threshold
         int[] thresholdCandidates = DEFAULT_THRESHOLD_CANDIDATES;
 
-        for (int threshold : thresholdCandidates) {
-            HybridQuickSort algorithm = new HybridQuickSort(threshold);
+        for (int candidateThreshold : thresholdCandidates) {
+            HybridQuickSort hybridAlgorithm = new HybridQuickSort(candidateThreshold);
 
             // Testa com dados aleatorios
-            PerformanceResult result = performanceTester.testAlgorithmMultipleTimes(
-                algorithm, DataType.RANDOM, arraySize, iterations
+            PerformanceResult performanceResult = performanceTester.testAlgorithmMultipleTimes(
+                hybridAlgorithm, DataType.RANDOM, arraySize, iterations
             );
 
-            results.add(new ThresholdResult(threshold, result.getExecutionTimeNanos()));
+            allThresholdResults.add(new ThresholdResult(candidateThreshold, performanceResult.getExecutionTimeNanos()));
 
             System.out.printf("Threshold M=%d: %.2f ms%n",
-                threshold, result.getExecutionTimeMillis());
+                candidateThreshold, performanceResult.getExecutionTimeMillis());
         }
 
         // Encontra o melhor threshold
-        ThresholdResult best = results.stream()
+        ThresholdResult bestThresholdResult = allThresholdResults.stream()
                 .min((r1, r2) -> Long.compare(r1.getExecutionTime(), r2.getExecutionTime()))
-                .orElse(results.get(0));
+                .orElse(allThresholdResults.get(0));
 
         System.out.println();
         System.out.printf("Melhor threshold determinado: M=%d (%.2f ms)%n",
-            best.getThreshold(), best.getExecutionTime() / 1_000_000.0);
+            bestThresholdResult.getThreshold(), bestThresholdResult.getExecutionTime() / 1_000_000.0);
 
-        return new OptimizationResult(best.getThreshold(), results);
+        return new OptimizationResult(bestThresholdResult.getThreshold(), allThresholdResults);
     }
 
     /**

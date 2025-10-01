@@ -32,13 +32,14 @@ public class ImprovedHybridQuickSort implements SortingAlgorithm {
         metrics.incrementComparisons(); // Comparacao: low < high
         if (low < high) {
             // Se o subarray e pequeno, usa Insertion Sort
-            metrics.incrementComparisons(); // Comparacao: high - low + 1 <= threshold
-            if (high - low + 1 <= threshold) {
+            int subarraySize = high - low + 1;
+            metrics.incrementComparisons(); // Comparacao: subarraySize <= threshold
+            if (subarraySize <= threshold) {
                 InsertionSort.sort(array, low, high, metrics);
             } else {
                 // Usa mediana-de-tres para escolher o pivo
-                int pivotIndex = medianOfThree(array, low, high, metrics);
-                swap(array, pivotIndex, high, metrics); // Move o pivo para o final
+                int medianIndex = medianOfThree(array, low, high, metrics);
+                swap(array, medianIndex, high, metrics); // Move o pivo para o final
 
                 int partitionIndex = partition(array, low, high, metrics);
                 quickSort(array, low, partitionIndex - 1, metrics);
@@ -52,47 +53,47 @@ public class ImprovedHybridQuickSort implements SortingAlgorithm {
      * e retorna o indice do elemento mediano
      */
     private int medianOfThree(int[] array, int low, int high, SortingMetrics metrics) {
-        int mid = low + (high - low) / 2;
+        int midIndex = low + (high - low) / 2;
 
-        metrics.incrementComparisons(); // Comparacao: array[low] > array[mid]
-        if (array[low] > array[mid]) {
-            swap(array, low, mid, metrics);
+        metrics.incrementComparisons(); // Comparacao: array[low] > array[midIndex]
+        if (array[low] > array[midIndex]) {
+            swap(array, low, midIndex, metrics);
         }
 
-        metrics.incrementComparisons(); // Comparacao: array[mid] > array[high]
-        if (array[mid] > array[high]) {
-            swap(array, mid, high, metrics);
+        metrics.incrementComparisons(); // Comparacao: array[midIndex] > array[high]
+        if (array[midIndex] > array[high]) {
+            swap(array, midIndex, high, metrics);
         }
 
-        metrics.incrementComparisons(); // Comparacao: array[low] > array[mid]
-        if (array[low] > array[mid]) {
-            swap(array, low, mid, metrics);
+        metrics.incrementComparisons(); // Comparacao: array[low] > array[midIndex]
+        if (array[low] > array[midIndex]) {
+            swap(array, low, midIndex, metrics);
         }
 
-        return mid; // O elemento do meio e a mediana
+        return midIndex; // O elemento do meio e a mediana
     }
 
     private int partition(int[] array, int low, int high, SortingMetrics metrics) {
-        int pivot = array[high];
-        int i = low - 1;
+        int pivotValue = array[high];
+        int partitionIndex = low - 1;
 
-        for (int j = low; j < high; j++) {
-            metrics.incrementComparisons(); // Comparacao: array[j] <= pivot
-            if (array[j] <= pivot) {
-                i++;
-                swap(array, i, j, metrics);
+        for (int currentIndex = low; currentIndex < high; currentIndex++) {
+            metrics.incrementComparisons(); // Comparacao: array[currentIndex] <= pivotValue
+            if (array[currentIndex] <= pivotValue) {
+                partitionIndex++;
+                swap(array, partitionIndex, currentIndex, metrics);
             }
         }
-        swap(array, i + 1, high, metrics);
-        return i + 1;
+        swap(array, partitionIndex + 1, high, metrics);
+        return partitionIndex + 1;
     }
 
-    private void swap(int[] array, int i, int j, SortingMetrics metrics) {
-        if (i != j) { // So conta como troca se as posicoes forem diferentes
+    private void swap(int[] array, int firstIndex, int secondIndex, SortingMetrics metrics) {
+        if (firstIndex != secondIndex) { // So conta como troca se as posicoes forem diferentes
             metrics.incrementSwaps();
-            int temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
+            int tempValue = array[firstIndex];
+            array[firstIndex] = array[secondIndex];
+            array[secondIndex] = tempValue;
         }
     }
 

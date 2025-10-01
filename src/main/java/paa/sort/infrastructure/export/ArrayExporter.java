@@ -42,13 +42,13 @@ public class ArrayExporter {
             Files.createDirectories(Paths.get(baseOutputDirectory));
 
             // Subdiretorios para cada tipo de dados
-            String[] dataTypes = {"aleatorio", "ordenado", "ordenado_inverso", "muitos_duplicados", "pior_caso"};
+            String[] dataTypeDirectoryNames = {"aleatorio", "ordenado", "ordenado_inverso", "muitos_duplicados", "pior_caso"};
 
-            for (String dataType : dataTypes) {
-                String typeDir = baseOutputDirectory + "/" + dataType;
-                Files.createDirectories(Paths.get(typeDir + "/arrays_originais"));
-                Files.createDirectories(Paths.get(typeDir + "/arrays_ordenados"));
-                Files.createDirectories(Paths.get(typeDir + "/resultados"));
+            for (String dataTypeDirName : dataTypeDirectoryNames) {
+                String typeDirectoryPath = baseOutputDirectory + "/" + dataTypeDirName;
+                Files.createDirectories(Paths.get(typeDirectoryPath + "/arrays_originais"));
+                Files.createDirectories(Paths.get(typeDirectoryPath + "/arrays_ordenados"));
+                Files.createDirectories(Paths.get(typeDirectoryPath + "/resultados"));
             }
 
         } catch (IOException e) {
@@ -317,8 +317,8 @@ public class ArrayExporter {
      * Escreve todos os elementos do array no arquivo
      */
     private void writeAllArrayElements(FileWriter writer, int[] array) throws IOException {
-        for (int i = 0; i < array.length; i++) {
-            writer.write(String.format(ARRAY_ELEMENT_FORMAT, i, array[i]));
+        for (int elementIndex = 0; elementIndex < array.length; elementIndex++) {
+            writer.write(String.format(ARRAY_ELEMENT_FORMAT, elementIndex, array[elementIndex]));
         }
 
         writer.write(String.format(TOTAL_ELEMENTS_FORMAT, array.length));
@@ -332,8 +332,8 @@ public class ArrayExporter {
             return true;
         }
 
-        for (int i = 1; i < array.length; i++) {
-            if (array[i] < array[i - 1]) {
+        for (int currentIndex = 1; currentIndex < array.length; currentIndex++) {
+            if (array[currentIndex] < array[currentIndex - 1]) {
                 return false;
             }
         }

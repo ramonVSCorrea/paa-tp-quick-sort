@@ -76,30 +76,30 @@ public class QuickSortComparativeStudy {
         };
 
         // 5. Executa os testes comparativos
-        for (DataType dataType : dataTypes) {
-            System.out.println("--- Testando com dados: " + dataType.getDescription() + " ---");
+        for (DataType currentDataType : dataTypes) {
+            System.out.println("--- Testando com dados: " + currentDataType.getDescription() + " ---");
             System.out.println();
 
-            List<PerformanceResult> typeResults = new ArrayList<>();
+            List<PerformanceResult> resultsForCurrentDataType = new ArrayList<>();
 
-            for (int size : testSizes) {
-                System.out.println("Tamanho do array: " + size);
+            for (int arraySize : testSizes) {
+                System.out.println("Tamanho do array: " + arraySize);
                 System.out.println("Executando " + DEFAULT_MULTIPLE_EXECUTIONS + " vezes cada algoritmo...");
 
                 // Gera o array original e salva
-                int[] originalArray = testDataGenerator.generateData(dataType, size);
-                arrayExporter.saveOriginalArray(dataType, size, originalArray);
+                int[] originalUnsortedArray = testDataGenerator.generateData(currentDataType, arraySize);
+                arrayExporter.saveOriginalArray(currentDataType, arraySize, originalUnsortedArray);
 
-                List<PerformanceResult> results = new ArrayList<>();
+                List<PerformanceResult> resultsForCurrentSize = new ArrayList<>();
 
-                for (SortingAlgorithm algorithm : algorithms) {
+                for (SortingAlgorithm algorithmUnderTest : algorithms) {
                     // MUDANCA PRINCIPAL: Executa multiplas vezes e calcula medias
                     PerformanceResult result = testAlgorithmMultipleTimesAndSaveArrays(
-                        algorithm, dataType, size, originalArray, DEFAULT_MULTIPLE_EXECUTIONS
+                        algorithmUnderTest, currentDataType, arraySize, originalUnsortedArray, DEFAULT_MULTIPLE_EXECUTIONS
                     );
-                    results.add(result);
+                    resultsForCurrentSize.add(result);
                     allResults.add(result);
-                    typeResults.add(result);
+                    resultsForCurrentDataType.add(result);
 
                     System.out.printf("  %s: %.2f ms | Comp: %d | Trocas: %d%n",
                         result.getAlgorithmName(), result.getExecutionTimeMillis(),
@@ -107,19 +107,19 @@ public class QuickSortComparativeStudy {
                 }
 
                 // Encontra o melhor resultado
-                PerformanceResult fastest = results.stream()
+                PerformanceResult fastestAlgorithmResult = resultsForCurrentSize.stream()
                         .min((r1, r2) -> Long.compare(r1.getExecutionTimeNanos(), r2.getExecutionTimeNanos()))
                         .orElse(null);
 
-                if (fastest != null) {
-                    System.out.printf("  -> Melhor: %s%n", fastest.getAlgorithmName());
+                if (fastestAlgorithmResult != null) {
+                    System.out.printf("  -> Melhor: %s%n", fastestAlgorithmResult.getAlgorithmName());
                 }
 
                 System.out.println();
             }
 
             // Salva resultados por tipo de dados
-            arrayExporter.saveTestResults(typeResults, dataType.getDescription(), dataType);
+            arrayExporter.saveTestResults(resultsForCurrentDataType, currentDataType.getDescription(), currentDataType);
             System.out.println();
         }
 
@@ -232,8 +232,8 @@ public class QuickSortComparativeStudy {
             return true;
         }
 
-        for (int i = 1; i < array.length; i++) {
-            if (array[i] < array[i - 1]) {
+        for (int currentIndex = 1; currentIndex < array.length; currentIndex++) {
+            if (array[currentIndex] < array[currentIndex - 1]) {
                 return false;
             }
         }
@@ -260,7 +260,7 @@ public class QuickSortComparativeStudy {
         System.out.println("=== ANALISE DO PIOR CASO ===");
         System.out.println();
 
-        int[] worstCaseSizes = WORST_CASE_TEST_SIZES;
+        int[] worstCaseArraySizes = WORST_CASE_TEST_SIZES;
 
         System.out.println("Testando com arrays que forcam o pior caso do Quicksort:");
         System.out.println("Executando " + DEFAULT_MULTIPLE_EXECUTIONS + " vezes cada teste...");
@@ -268,18 +268,18 @@ public class QuickSortComparativeStudy {
 
         List<PerformanceResult> worstCaseResults = new ArrayList<>();
 
-        for (int size : worstCaseSizes) {
-            System.out.println("Tamanho: " + size);
+        for (int arraySize : worstCaseArraySizes) {
+            System.out.println("Tamanho: " + arraySize);
 
             // Gera array do pior caso
-            int[] worstCaseArray = testDataGenerator.generateData(DataType.WORST_CASE, size);
-            arrayExporter.saveOriginalArray(DataType.WORST_CASE, size, worstCaseArray);
+            int[] worstCaseArray = testDataGenerator.generateData(DataType.WORST_CASE, arraySize);
+            arrayExporter.saveOriginalArray(DataType.WORST_CASE, arraySize, worstCaseArray);
 
-            for (SortingAlgorithm algorithm : algorithms) {
+            for (SortingAlgorithm algorithmUnderTest : algorithms) {
                 try {
                     // MUDANCA: Usa multiplas execucoes tambem no pior caso
                     PerformanceResult result = testAlgorithmMultipleTimesAndSaveArrays(
-                        algorithm, DataType.WORST_CASE, size, worstCaseArray, DEFAULT_MULTIPLE_EXECUTIONS
+                        algorithmUnderTest, DataType.WORST_CASE, arraySize, worstCaseArray, DEFAULT_MULTIPLE_EXECUTIONS
                     );
                     worstCaseResults.add(result);
                     allResults.add(result);
@@ -293,9 +293,9 @@ public class QuickSortComparativeStudy {
                     );
 
                 } catch (StackOverflowError e) {
-                    System.out.printf("  %s: STACK OVERFLOW ERROR%n", algorithm.getName());
+                    System.out.printf("  %s: STACK OVERFLOW ERROR%n", algorithmUnderTest.getName());
                 } catch (Exception e) {
-                    System.out.printf("  %s: ERRO - %s%n", algorithm.getName(), e.getMessage());
+                    System.out.printf("  %s: ERRO - %s%n", algorithmUnderTest.getName(), e.getMessage());
                 }
             }
             System.out.println();
