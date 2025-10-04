@@ -1,8 +1,8 @@
 ========================================
 RESUMO GERAL DO ESTUDO COMPARATIVO
 ========================================
-Data/Hora: 04/10/2025 10:56:31
-Threshold Otimo Determinado: M=50
+Data/Hora: 04/10/2025 11:21:10
+Threshold Otimo Determinado: M=40
 Total de Testes Realizados: 102
 ----------------------------------------
 
@@ -12,14 +12,14 @@ Total de Testes Realizados: 102
 Tamanho: 100 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,061 ms | Comparacoes: 724 | Trocas: 244 | Status: OK
-? Quicksort Hibrido (M=50)
-    Tempo: 0,004 ms | Comparacoes: 1133 | Trocas: 1007 | Status: OK
-  Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,015 ms | Comparacoes: 1133 | Trocas: 1010 | Status: OK
+    Tempo: 0,111 ms | Comparacoes: 724 | Trocas: 244 | Status: OK
+? Quicksort Hibrido (M=40)
+    Tempo: 0,012 ms | Comparacoes: 1005 | Trocas: 858 | Status: OK
+  Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,069 ms | Comparacoes: 1003 | Trocas: 852 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido (M=50) (0,004 ms)
+  Melhor Tempo: Quicksort Hibrido (M=40) (0,012 ms)
   Menos Comparacoes: Quicksort Recursivo (724 comparacoes)
   Menos Trocas: Quicksort Recursivo (244 trocas)
 
@@ -27,14 +27,14 @@ MELHORES NESTE TAMANHO:
 Tamanho: 500 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,150 ms | Comparacoes: 5353 | Trocas: 1904 | Status: OK
-? Quicksort Hibrido (M=50)
-    Tempo: 0,039 ms | Comparacoes: 7345 | Trocas: 5703 | Status: OK
-  Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,142 ms | Comparacoes: 7035 | Trocas: 6010 | Status: OK
+    Tempo: 0,169 ms | Comparacoes: 5353 | Trocas: 1904 | Status: OK
+? Quicksort Hibrido (M=40)
+    Tempo: 0,064 ms | Comparacoes: 6462 | Trocas: 4670 | Status: OK
+  Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,206 ms | Comparacoes: 6041 | Trocas: 4869 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido (M=50) (0,039 ms)
+  Melhor Tempo: Quicksort Hibrido (M=40) (0,064 ms)
   Menos Comparacoes: Quicksort Recursivo (5353 comparacoes)
   Menos Trocas: Quicksort Recursivo (1904 trocas)
 
@@ -42,14 +42,14 @@ MELHORES NESTE TAMANHO:
 Tamanho: 1000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,163 ms | Comparacoes: 11808 | Trocas: 5473 | Status: OK
-? Quicksort Hibrido (M=50)
-    Tempo: 0,062 ms | Comparacoes: 15769 | Trocas: 12843 | Status: OK
-  Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,124 ms | Comparacoes: 15092 | Trocas: 12620 | Status: OK
+    Tempo: 0,449 ms | Comparacoes: 11808 | Trocas: 5473 | Status: OK
+? Quicksort Hibrido (M=40)
+    Tempo: 0,091 ms | Comparacoes: 14301 | Trocas: 11197 | Status: OK
+  Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,208 ms | Comparacoes: 13970 | Trocas: 11306 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido (M=50) (0,062 ms)
+  Melhor Tempo: Quicksort Hibrido (M=40) (0,091 ms)
   Menos Comparacoes: Quicksort Recursivo (11808 comparacoes)
   Menos Trocas: Quicksort Recursivo (5473 trocas)
 
@@ -57,44 +57,44 @@ MELHORES NESTE TAMANHO:
 Tamanho: 2000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,350 ms | Comparacoes: 27381 | Trocas: 11016 | Status: OK
-? Quicksort Hibrido (M=50)
-    Tempo: 0,119 ms | Comparacoes: 34852 | Trocas: 25998 | Status: OK
-  Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,195 ms | Comparacoes: 32375 | Trocas: 24754 | Status: OK
+    Tempo: 0,546 ms | Comparacoes: 27381 | Trocas: 11016 | Status: OK
+? Quicksort Hibrido (M=40)
+    Tempo: 0,191 ms | Comparacoes: 31063 | Trocas: 21283 | Status: OK
+  Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,378 ms | Comparacoes: 29255 | Trocas: 21137 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido (M=50) (0,119 ms)
+  Melhor Tempo: Quicksort Hibrido (M=40) (0,191 ms)
   Menos Comparacoes: Quicksort Recursivo (27381 comparacoes)
   Menos Trocas: Quicksort Recursivo (11016 trocas)
 
 
 Tamanho: 5000 elementos
 ----------------------------------------
-? Quicksort Recursivo
-    Tempo: 0,309 ms | Comparacoes: 77528 | Trocas: 32696 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,313 ms | Comparacoes: 93865 | Trocas: 66654 | Status: OK
-  Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,620 ms | Comparacoes: 90082 | Trocas: 66655 | Status: OK
+  Quicksort Recursivo
+    Tempo: 1,403 ms | Comparacoes: 77528 | Trocas: 32696 | Status: OK
+? Quicksort Hibrido (M=40)
+    Tempo: 0,474 ms | Comparacoes: 87283 | Trocas: 58949 | Status: OK
+  Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 1,036 ms | Comparacoes: 81097 | Trocas: 56163 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Recursivo (0,309 ms)
+  Melhor Tempo: Quicksort Hibrido (M=40) (0,474 ms)
   Menos Comparacoes: Quicksort Recursivo (77528 comparacoes)
   Menos Trocas: Quicksort Recursivo (32696 trocas)
 
 
 Tamanho: 10000 elementos
 ----------------------------------------
-  Quicksort Recursivo
-    Tempo: 0,628 ms | Comparacoes: 170145 | Trocas: 78558 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,628 ms | Comparacoes: 203904 | Trocas: 148078 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,567 ms | Comparacoes: 187132 | Trocas: 136643 | Status: OK
+? Quicksort Recursivo
+    Tempo: 1,138 ms | Comparacoes: 170145 | Trocas: 78558 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 1,149 ms | Comparacoes: 192273 | Trocas: 133708 | Status: OK
+  Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 2,342 ms | Comparacoes: 170651 | Trocas: 117545 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,567 ms)
+  Melhor Tempo: Quicksort Recursivo (1,138 ms)
   Menos Comparacoes: Quicksort Recursivo (170145 comparacoes)
   Menos Trocas: Quicksort Recursivo (78558 trocas)
 
@@ -104,90 +104,90 @@ MELHORES NESTE TAMANHO:
 Tamanho: 100 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,010 ms | Comparacoes: 5149 | Trocas: 0 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,007 ms | Comparacoes: 3926 | Trocas: 0 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,001 ms | Comparacoes: 205 | Trocas: 2 | Status: OK
+    Tempo: 0,021 ms | Comparacoes: 5149 | Trocas: 0 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 0,009 ms | Comparacoes: 4391 | Trocas: 0 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,004 ms | Comparacoes: 312 | Trocas: 6 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,001 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (205 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,004 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (312 comparacoes)
   Menos Trocas: Quicksort Recursivo (0 trocas)
 
 
 Tamanho: 500 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,216 ms | Comparacoes: 125749 | Trocas: 0 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,159 ms | Comparacoes: 124926 | Trocas: 0 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,006 ms | Comparacoes: 2550 | Trocas: 30 | Status: OK
+    Tempo: 0,394 ms | Comparacoes: 125749 | Trocas: 0 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 0,412 ms | Comparacoes: 125391 | Trocas: 0 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,018 ms | Comparacoes: 2550 | Trocas: 30 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,006 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (2550 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,018 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (2550 comparacoes)
   Menos Trocas: Quicksort Recursivo (0 trocas)
 
 
 Tamanho: 1000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,469 ms | Comparacoes: 501499 | Trocas: 0 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,641 ms | Comparacoes: 501176 | Trocas: 0 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,010 ms | Comparacoes: 6099 | Trocas: 62 | Status: OK
+    Tempo: 1,601 ms | Comparacoes: 501499 | Trocas: 0 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 1,022 ms | Comparacoes: 501641 | Trocas: 0 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,036 ms | Comparacoes: 6099 | Trocas: 62 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,010 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (6099 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,036 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (6099 comparacoes)
   Menos Trocas: Quicksort Recursivo (0 trocas)
 
 
 Tamanho: 2000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 1,929 ms | Comparacoes: 2002999 | Trocas: 0 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 3,329 ms | Comparacoes: 2003676 | Trocas: 0 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,020 ms | Comparacoes: 14196 | Trocas: 126 | Status: OK
+    Tempo: 3,651 ms | Comparacoes: 2002999 | Trocas: 0 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 3,767 ms | Comparacoes: 2004141 | Trocas: 0 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,067 ms | Comparacoes: 14196 | Trocas: 126 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,020 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (14196 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,067 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (14196 comparacoes)
   Menos Trocas: Quicksort Recursivo (0 trocas)
 
 
 Tamanho: 5000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 11,423 ms | Comparacoes: 12507499 | Trocas: 0 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 16,749 ms | Comparacoes: 12511176 | Trocas: 0 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,067 ms | Comparacoes: 40389 | Trocas: 254 | Status: OK
+    Tempo: 18,518 ms | Comparacoes: 12507499 | Trocas: 0 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 26,487 ms | Comparacoes: 12511641 | Trocas: 0 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,136 ms | Comparacoes: 40389 | Trocas: 254 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,067 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (40389 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,136 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (40389 comparacoes)
   Menos Trocas: Quicksort Recursivo (0 trocas)
 
 
 Tamanho: 10000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 60,450 ms | Comparacoes: 50014999 | Trocas: 0 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 55,403 ms | Comparacoes: 50023676 | Trocas: 0 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,096 ms | Comparacoes: 90774 | Trocas: 510 | Status: OK
+    Tempo: 87,777 ms | Comparacoes: 50014999 | Trocas: 0 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 86,982 ms | Comparacoes: 50024141 | Trocas: 0 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,267 ms | Comparacoes: 90774 | Trocas: 510 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,096 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (90774 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,267 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (90774 comparacoes)
   Menos Trocas: Quicksort Recursivo (0 trocas)
 
 
@@ -195,91 +195,91 @@ MELHORES NESTE TAMANHO:
 
 Tamanho: 100 elementos
 ----------------------------------------
-? Quicksort Recursivo
-    Tempo: 0,009 ms | Comparacoes: 5149 | Trocas: 50 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,010 ms | Comparacoes: 5102 | Trocas: 1299 | Status: OK
-  Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,011 ms | Comparacoes: 2417 | Trocas: 2407 | Status: OK
+  Quicksort Recursivo
+    Tempo: 0,014 ms | Comparacoes: 5149 | Trocas: 50 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 0,018 ms | Comparacoes: 5132 | Trocas: 849 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,007 ms | Comparacoes: 1324 | Trocas: 1125 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Recursivo (0,009 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (2417 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,007 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (1324 comparacoes)
   Menos Trocas: Quicksort Recursivo (50 trocas)
 
 
 Tamanho: 500 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,095 ms | Comparacoes: 125749 | Trocas: 250 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,105 ms | Comparacoes: 126102 | Trocas: 1499 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,015 ms | Comparacoes: 10136 | Trocas: 7749 | Status: OK
+    Tempo: 0,310 ms | Comparacoes: 125749 | Trocas: 250 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 0,373 ms | Comparacoes: 126132 | Trocas: 1049 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,039 ms | Comparacoes: 10136 | Trocas: 7749 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,015 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (10136 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,039 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (10136 comparacoes)
   Menos Trocas: Quicksort Recursivo (250 trocas)
 
 
 Tamanho: 1000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,692 ms | Comparacoes: 501499 | Trocas: 500 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,676 ms | Comparacoes: 502352 | Trocas: 1749 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,039 ms | Comparacoes: 22428 | Trocas: 16262 | Status: OK
+    Tempo: 0,927 ms | Comparacoes: 501499 | Trocas: 500 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 1,334 ms | Comparacoes: 502382 | Trocas: 1299 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,091 ms | Comparacoes: 22428 | Trocas: 16262 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,039 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (22428 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,091 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (22428 comparacoes)
   Menos Trocas: Quicksort Recursivo (500 trocas)
 
 
 Tamanho: 2000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 2,429 ms | Comparacoes: 2002999 | Trocas: 1000 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 2,350 ms | Comparacoes: 2004852 | Trocas: 2249 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,089 ms | Comparacoes: 49166 | Trocas: 34163 | Status: OK
+    Tempo: 3,076 ms | Comparacoes: 2002999 | Trocas: 1000 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 3,456 ms | Comparacoes: 2004882 | Trocas: 1799 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,141 ms | Comparacoes: 49166 | Trocas: 34163 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,089 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (49166 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,141 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (49166 comparacoes)
   Menos Trocas: Quicksort Recursivo (1000 trocas)
 
 
 Tamanho: 5000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 10,202 ms | Comparacoes: 12507499 | Trocas: 2500 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 10,569 ms | Comparacoes: 12512352 | Trocas: 3749 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,242 ms | Comparacoes: 153683 | Trocas: 108635 | Status: OK
+    Tempo: 17,863 ms | Comparacoes: 12507499 | Trocas: 2500 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 20,030 ms | Comparacoes: 12512382 | Trocas: 3299 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,427 ms | Comparacoes: 153683 | Trocas: 108635 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,242 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (153683 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,427 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (153683 comparacoes)
   Menos Trocas: Quicksort Recursivo (2500 trocas)
 
 
 Tamanho: 10000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 39,783 ms | Comparacoes: 50014999 | Trocas: 5000 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 41,217 ms | Comparacoes: 50024852 | Trocas: 6249 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,489 ms | Comparacoes: 330263 | Trocas: 226214 | Status: OK
+    Tempo: 71,386 ms | Comparacoes: 50014999 | Trocas: 5000 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 83,479 ms | Comparacoes: 50024882 | Trocas: 5799 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 1,105 ms | Comparacoes: 330263 | Trocas: 226214 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,489 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (330263 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (1,105 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (330263 comparacoes)
   Menos Trocas: Quicksort Recursivo (5000 trocas)
 
 
@@ -288,90 +288,90 @@ MELHORES NESTE TAMANHO:
 Tamanho: 100 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,004 ms | Comparacoes: 1242 | Trocas: 157 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,008 ms | Comparacoes: 752 | Trocas: 464 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,003 ms | Comparacoes: 809 | Trocas: 645 | Status: OK
+    Tempo: 0,007 ms | Comparacoes: 1242 | Trocas: 157 | Status: OK
+? Quicksort Hibrido (M=40)
+    Tempo: 0,004 ms | Comparacoes: 752 | Trocas: 464 | Status: OK
+  Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,005 ms | Comparacoes: 819 | Trocas: 611 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,003 ms)
-  Menos Comparacoes: Quicksort Hibrido (M=50) (752 comparacoes)
+  Melhor Tempo: Quicksort Hibrido (M=40) (0,004 ms)
+  Menos Comparacoes: Quicksort Hibrido (M=40) (752 comparacoes)
   Menos Trocas: Quicksort Recursivo (157 trocas)
 
 
 Tamanho: 500 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,018 ms | Comparacoes: 6509 | Trocas: 1462 | Status: OK
-? Quicksort Hibrido (M=50)
-    Tempo: 0,011 ms | Comparacoes: 5384 | Trocas: 3648 | Status: OK
-  Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,013 ms | Comparacoes: 5535 | Trocas: 4192 | Status: OK
+    Tempo: 0,033 ms | Comparacoes: 6509 | Trocas: 1462 | Status: OK
+? Quicksort Hibrido (M=40)
+    Tempo: 0,026 ms | Comparacoes: 5065 | Trocas: 3163 | Status: OK
+  Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,033 ms | Comparacoes: 4979 | Trocas: 3578 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido (M=50) (0,011 ms)
-  Menos Comparacoes: Quicksort Hibrido (M=50) (5384 comparacoes)
+  Melhor Tempo: Quicksort Hibrido (M=40) (0,026 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (4979 comparacoes)
   Menos Trocas: Quicksort Recursivo (1462 trocas)
 
 
 Tamanho: 1000 elementos
 ----------------------------------------
-? Quicksort Recursivo
-    Tempo: 0,022 ms | Comparacoes: 14579 | Trocas: 4468 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,025 ms | Comparacoes: 13203 | Trocas: 10056 | Status: OK
-  Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,041 ms | Comparacoes: 13234 | Trocas: 9645 | Status: OK
+  Quicksort Recursivo
+    Tempo: 0,156 ms | Comparacoes: 14579 | Trocas: 4468 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 0,083 ms | Comparacoes: 12208 | Trocas: 8848 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,038 ms | Comparacoes: 11596 | Trocas: 7729 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Recursivo (0,022 ms)
-  Menos Comparacoes: Quicksort Hibrido (M=50) (13203 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,038 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (11596 comparacoes)
   Menos Trocas: Quicksort Recursivo (4468 trocas)
 
 
 Tamanho: 2000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,101 ms | Comparacoes: 33530 | Trocas: 11156 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,112 ms | Comparacoes: 30609 | Trocas: 22092 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,060 ms | Comparacoes: 28676 | Trocas: 20016 | Status: OK
+    Tempo: 0,109 ms | Comparacoes: 33530 | Trocas: 11156 | Status: OK
+? Quicksort Hibrido (M=40)
+    Tempo: 0,092 ms | Comparacoes: 28171 | Trocas: 18710 | Status: OK
+  Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,151 ms | Comparacoes: 25557 | Trocas: 16236 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,060 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (28676 comparacoes)
+  Melhor Tempo: Quicksort Hibrido (M=40) (0,092 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (25557 comparacoes)
   Menos Trocas: Quicksort Recursivo (11156 trocas)
 
 
 Tamanho: 5000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,263 ms | Comparacoes: 95589 | Trocas: 32461 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,273 ms | Comparacoes: 88086 | Trocas: 58804 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,244 ms | Comparacoes: 75256 | Trocas: 51965 | Status: OK
+    Tempo: 0,438 ms | Comparacoes: 95589 | Trocas: 32461 | Status: OK
+? Quicksort Hibrido (M=40)
+    Tempo: 0,393 ms | Comparacoes: 83503 | Trocas: 52676 | Status: OK
+  Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,468 ms | Comparacoes: 69375 | Trocas: 44772 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,244 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (75256 comparacoes)
+  Melhor Tempo: Quicksort Hibrido (M=40) (0,393 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (69375 comparacoes)
   Menos Trocas: Quicksort Recursivo (32461 trocas)
 
 
 Tamanho: 10000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,559 ms | Comparacoes: 199591 | Trocas: 70798 | Status: OK
-? Quicksort Hibrido (M=50)
-    Tempo: 0,542 ms | Comparacoes: 184747 | Trocas: 122374 | Status: OK
-  Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,592 ms | Comparacoes: 167718 | Trocas: 114880 | Status: OK
+    Tempo: 1,165 ms | Comparacoes: 199591 | Trocas: 70798 | Status: OK
+? Quicksort Hibrido (M=40)
+    Tempo: 1,036 ms | Comparacoes: 175402 | Trocas: 109996 | Status: OK
+  Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 1,136 ms | Comparacoes: 153739 | Trocas: 97951 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido (M=50) (0,542 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (167718 comparacoes)
+  Melhor Tempo: Quicksort Hibrido (M=40) (1,036 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (153739 comparacoes)
   Menos Trocas: Quicksort Recursivo (70798 trocas)
 
 
@@ -380,150 +380,150 @@ MELHORES NESTE TAMANHO:
 Tamanho: 100 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,012 ms | Comparacoes: 5149 | Trocas: 0 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,007 ms | Comparacoes: 3926 | Trocas: 0 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,001 ms | Comparacoes: 205 | Trocas: 2 | Status: OK
+    Tempo: 0,020 ms | Comparacoes: 5149 | Trocas: 0 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 0,016 ms | Comparacoes: 4391 | Trocas: 0 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,003 ms | Comparacoes: 312 | Trocas: 6 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,001 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (205 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,003 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (312 comparacoes)
   Menos Trocas: Quicksort Recursivo (0 trocas)
 
 
 Tamanho: 500 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,122 ms | Comparacoes: 125749 | Trocas: 0 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,136 ms | Comparacoes: 124926 | Trocas: 0 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,007 ms | Comparacoes: 2550 | Trocas: 30 | Status: OK
+    Tempo: 0,211 ms | Comparacoes: 125749 | Trocas: 0 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 0,329 ms | Comparacoes: 125391 | Trocas: 0 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,006 ms | Comparacoes: 2550 | Trocas: 30 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,007 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (2550 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,006 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (2550 comparacoes)
   Menos Trocas: Quicksort Recursivo (0 trocas)
 
 
 Tamanho: 1000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,481 ms | Comparacoes: 501499 | Trocas: 0 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,798 ms | Comparacoes: 501176 | Trocas: 0 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,011 ms | Comparacoes: 6099 | Trocas: 62 | Status: OK
+    Tempo: 0,757 ms | Comparacoes: 501499 | Trocas: 0 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 0,931 ms | Comparacoes: 501641 | Trocas: 0 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,014 ms | Comparacoes: 6099 | Trocas: 62 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,011 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (6099 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,014 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (6099 comparacoes)
   Menos Trocas: Quicksort Recursivo (0 trocas)
 
 
 Tamanho: 2000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 1,902 ms | Comparacoes: 2002999 | Trocas: 0 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 2,162 ms | Comparacoes: 2003676 | Trocas: 0 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,030 ms | Comparacoes: 14196 | Trocas: 126 | Status: OK
+    Tempo: 2,884 ms | Comparacoes: 2002999 | Trocas: 0 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 3,557 ms | Comparacoes: 2004141 | Trocas: 0 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,031 ms | Comparacoes: 14196 | Trocas: 126 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,030 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (14196 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,031 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (14196 comparacoes)
   Menos Trocas: Quicksort Recursivo (0 trocas)
 
 
 Tamanho: 5000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 11,738 ms | Comparacoes: 12507499 | Trocas: 0 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 12,380 ms | Comparacoes: 12511176 | Trocas: 0 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,046 ms | Comparacoes: 40389 | Trocas: 254 | Status: OK
+    Tempo: 23,105 ms | Comparacoes: 12507499 | Trocas: 0 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 20,616 ms | Comparacoes: 12511641 | Trocas: 0 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,079 ms | Comparacoes: 40389 | Trocas: 254 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,046 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (40389 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,079 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (40389 comparacoes)
   Menos Trocas: Quicksort Recursivo (0 trocas)
 
 
 Tamanho: 10000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 45,071 ms | Comparacoes: 50014999 | Trocas: 0 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 52,723 ms | Comparacoes: 50023676 | Trocas: 0 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,098 ms | Comparacoes: 90774 | Trocas: 510 | Status: OK
+    Tempo: 82,806 ms | Comparacoes: 50014999 | Trocas: 0 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 87,230 ms | Comparacoes: 50024141 | Trocas: 0 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,171 ms | Comparacoes: 90774 | Trocas: 510 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,098 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (90774 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,171 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (90774 comparacoes)
   Menos Trocas: Quicksort Recursivo (0 trocas)
 
 
 Tamanho: 100 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,011 ms | Comparacoes: 5149 | Trocas: 0 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,021 ms | Comparacoes: 3926 | Trocas: 0 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,001 ms | Comparacoes: 205 | Trocas: 2 | Status: OK
+    Tempo: 0,010 ms | Comparacoes: 5149 | Trocas: 0 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 0,015 ms | Comparacoes: 4391 | Trocas: 0 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,003 ms | Comparacoes: 312 | Trocas: 6 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,001 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (205 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,003 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (312 comparacoes)
   Menos Trocas: Quicksort Recursivo (0 trocas)
 
 
 Tamanho: 200 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,042 ms | Comparacoes: 20299 | Trocas: 0 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,019 ms | Comparacoes: 19176 | Trocas: 0 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,005 ms | Comparacoes: 612 | Trocas: 6 | Status: OK
+    Tempo: 0,080 ms | Comparacoes: 20299 | Trocas: 0 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 0,033 ms | Comparacoes: 19641 | Trocas: 0 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,008 ms | Comparacoes: 825 | Trocas: 14 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,005 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (612 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,008 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (825 comparacoes)
   Menos Trocas: Quicksort Recursivo (0 trocas)
 
 
 Tamanho: 500 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,243 ms | Comparacoes: 125749 | Trocas: 0 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,127 ms | Comparacoes: 124926 | Trocas: 0 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,006 ms | Comparacoes: 2550 | Trocas: 30 | Status: OK
+    Tempo: 0,270 ms | Comparacoes: 125749 | Trocas: 0 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 0,207 ms | Comparacoes: 125391 | Trocas: 0 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,009 ms | Comparacoes: 2550 | Trocas: 30 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,006 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (2550 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,009 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (2550 comparacoes)
   Menos Trocas: Quicksort Recursivo (0 trocas)
 
 
 Tamanho: 1000 elementos
 ----------------------------------------
   Quicksort Recursivo
-    Tempo: 0,453 ms | Comparacoes: 501499 | Trocas: 0 | Status: OK
-  Quicksort Hibrido (M=50)
-    Tempo: 0,779 ms | Comparacoes: 501176 | Trocas: 0 | Status: OK
-? Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
-    Tempo: 0,008 ms | Comparacoes: 6099 | Trocas: 62 | Status: OK
+    Tempo: 1,384 ms | Comparacoes: 501499 | Trocas: 0 | Status: OK
+  Quicksort Hibrido (M=40)
+    Tempo: 1,021 ms | Comparacoes: 501641 | Trocas: 0 | Status: OK
+? Quicksort Hibrido Melhorado (M=40, Mediana-de-3)
+    Tempo: 0,013 ms | Comparacoes: 6099 | Trocas: 62 | Status: OK
 
 MELHORES NESTE TAMANHO:
-  Melhor Tempo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (0,008 ms)
-  Menos Comparacoes: Quicksort Hibrido Melhorado (M=50, Mediana-de-3) (6099 comparacoes)
+  Melhor Tempo: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (0,013 ms)
+  Menos Comparacoes: Quicksort Hibrido Melhorado (M=40, Mediana-de-3) (6099 comparacoes)
   Menos Trocas: Quicksort Recursivo (0 trocas)
 
 

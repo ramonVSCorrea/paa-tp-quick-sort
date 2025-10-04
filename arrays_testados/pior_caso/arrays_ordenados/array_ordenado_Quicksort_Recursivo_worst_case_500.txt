@@ -4,7 +4,7 @@ ARRAY APOS ORDENACAO
 Algoritmo: Quicksort Recursivo
 Tipo Original: Pior Caso
 Tamanho: 500 elementos
-Data/Hora: 04/10/2025 10:56:31
+Data/Hora: 04/10/2025 11:21:10
 ----------------------------------------
 Elementos ordenados:
 [0] = 0

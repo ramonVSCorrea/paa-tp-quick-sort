@@ -2,10 +2,14 @@ package paa.sort.infrastructure.export;
 
 import paa.sort.domain.performance.PerformanceResult;
 import paa.sort.domain.testdata.DataType;
+import paa.sort.domain.exceptions.FileOperationException;
+import paa.sort.domain.exceptions.ValidationException;
+import paa.sort.infrastructure.logging.ExceptionLogger;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,9 +22,11 @@ import java.util.List;
  */
 public class ArrayExporter {
     private final String baseOutputDirectory;
+    private final ExceptionLogger exceptionLogger;
 
     public ArrayExporter() {
         this.baseOutputDirectory = "arrays_testados";
+        this.exceptionLogger = ExceptionLogger.getInstance();
         createDirectoryStructure();
     }
 
@@ -30,20 +36,31 @@ public class ArrayExporter {
     private void createDirectoryStructure() {
         try {
             // Diretorio principal
-            Files.createDirectories(Paths.get(baseOutputDirectory));
+            Path baseDir = Files.createDirectories(Paths.get(baseOutputDirectory));
+            exceptionLogger.logInfo("Diretório base criado: " + baseDir.toAbsolutePath(), "Estrutura de diretórios");
 
             // Subdiretorios para cada tipo de dados
             String[] dataTypes = { "aleatorio", "ordenado", "ordenado_inverso", "muitos_duplicados", "pior_caso" };
 
             for (String dataType : dataTypes) {
                 String typeDir = baseOutputDirectory + "/" + dataType;
-                Files.createDirectories(Paths.get(typeDir + "/arrays_originais"));
-                Files.createDirectories(Paths.get(typeDir + "/arrays_ordenados"));
-                Files.createDirectories(Paths.get(typeDir + "/resultados"));
+                Path originalDir = Files.createDirectories(Paths.get(typeDir + "/arrays_originais"));
+                Path sortedDir = Files.createDirectories(Paths.get(typeDir + "/arrays_ordenados"));
+                Path resultsDir = Files.createDirectories(Paths.get(typeDir + "/resultados"));
+
+                exceptionLogger.logInfo("Diretórios criados para " + dataType + ": " +
+                        originalDir.getFileName() + ", " + sortedDir.getFileName() + ", " + resultsDir.getFileName(),
+                        "Estrutura de diretórios");
             }
 
         } catch (IOException e) {
-            System.err.println("Erro ao criar estrutura de diretorios: " + e.getMessage());
+            FileOperationException fileException = new FileOperationException(
+                    "Falha ao criar estrutura de diretórios: " + e.getMessage(),
+                    "CREATE_DIRECTORY_STRUCTURE",
+                    Paths.get(baseOutputDirectory),
+                    e);
+            exceptionLogger.logFileOperationError(fileException, "Inicialização do ArrayExporter");
+            throw new RuntimeException("Não foi possível inicializar a estrutura de diretórios", fileException);
         }
     }
 
@@ -64,9 +81,17 @@ public class ArrayExporter {
      * Salva o array original testado
      */
     public void saveOriginalArray(DataType dataType, int size, int[] originalArray) {
+        try {
+            validateArrayInput(dataType, size, originalArray, "saveOriginalArray");
+        } catch (ValidationException e) {
+            exceptionLogger.logValidationError(e, "saveOriginalArray");
+            throw new RuntimeException("Erro de validação ao salvar array original", e);
+        }
+
         String dirName = getDirectoryName(dataType);
         String filename = String.format("%s/%s/arrays_originais/array_original_%s_%d.txt",
                 baseOutputDirectory, dirName, dataType.name().toLowerCase(), size);
+        Path filePath = Paths.get(filename);
 
         try (FileWriter writer = new FileWriter(filename)) {
             writer.write("========================================\n");
@@ -81,8 +106,18 @@ public class ArrayExporter {
 
             writeAllArrayElements(writer, originalArray);
 
+            exceptionLogger.logInfo("Array original salvo: " + filename + " (tamanho: " + size + ")",
+                    "Salvamento de array original");
+
         } catch (IOException e) {
-            System.err.println("Erro ao salvar array original: " + e.getMessage());
+            FileOperationException fileException = new FileOperationException(
+                    "Falha ao salvar array original: " + e.getMessage(),
+                    "SAVE_ORIGINAL_ARRAY",
+                    filePath,
+                    e);
+            exceptionLogger.logFileOperationError(fileException,
+                    "Tipo: " + dataType.getDescription() + ", Tamanho: " + size);
+            throw new RuntimeException("Não foi possível salvar o array original", fileException);
         }
     }
 
@@ -327,5 +362,31 @@ public class ArrayExporter {
             }
         }
         return true;
+    }
+
+    /**
+     * Valida os parâmetros de entrada para operações com arrays
+     */
+    private void validateArrayInput(DataType dataType, int size, int[] array, String operationName)
+            throws ValidationException {
+        if (dataType == null) {
+            throw new ValidationException("Tipo de dados não pode ser null", "dataType", null);
+        }
+
+        if (size <= 0) {
+            throw new ValidationException("Tamanho do array deve ser positivo", "size", size);
+        }
+
+        if (array == null) {
+            throw new ValidationException("Array não pode ser null", "array", null);
+        }
+
+        if (array.length != size) {
+            throw new ValidationException("Tamanho do array não corresponde ao parâmetro size", "array.length",
+                    array.length);
+        }
+
+        exceptionLogger.logInfo("Parâmetros validados para " + operationName + ": " +
+                "tipo=" + dataType.getDescription() + ", tamanho=" + size, "Validação de entrada");
     }
 }

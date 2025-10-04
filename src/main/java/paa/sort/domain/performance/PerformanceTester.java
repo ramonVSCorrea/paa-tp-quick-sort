@@ -3,6 +3,7 @@ package paa.sort.domain.performance;
 import paa.sort.domain.SortingAlgorithm;
 import paa.sort.domain.testdata.DataType;
 import paa.sort.domain.testdata.TestDataGenerator;
+import paa.sort.domain.exceptions.ValidationException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,8 @@ public class PerformanceTester {
     /**
      * Executa um teste de performance para um algoritmo especifico
      */
-    public PerformanceResult testAlgorithm(SortingAlgorithm algorithm, DataType dataType, int arraySize) {
+    public PerformanceResult testAlgorithm(SortingAlgorithm algorithm, DataType dataType, int arraySize)
+            throws ValidationException {
         int[] testData = dataGenerator.generateData(dataType, arraySize);
 
         // Aquece a JVM
@@ -43,19 +45,18 @@ public class PerformanceTester {
         long executionTime = endTime - startTime;
 
         return new PerformanceResult(
-            algorithm.getName(),
-            dataType.getDescription(),
-            arraySize,
-            executionTime,
-            successful
-        );
+                algorithm.getName(),
+                dataType.getDescription(),
+                arraySize,
+                executionTime,
+                successful);
     }
 
     /**
      * Executa multiplos testes e retorna a media dos tempos
      */
     public PerformanceResult testAlgorithmMultipleTimes(SortingAlgorithm algorithm, DataType dataType,
-                                                       int arraySize, int iterations) {
+            int arraySize, int iterations) throws ValidationException {
         List<PerformanceResult> results = new ArrayList<>();
 
         for (int i = 0; i < iterations; i++) {
@@ -70,12 +71,11 @@ public class PerformanceTester {
         boolean allSuccessful = results.stream().allMatch(PerformanceResult::isSuccessful);
 
         return new PerformanceResult(
-            algorithm.getName(),
-            dataType.getDescription(),
-            arraySize,
-            averageTime,
-            allSuccessful
-        );
+                algorithm.getName(),
+                dataType.getDescription(),
+                arraySize,
+                averageTime,
+                allSuccessful);
     }
 
     /**

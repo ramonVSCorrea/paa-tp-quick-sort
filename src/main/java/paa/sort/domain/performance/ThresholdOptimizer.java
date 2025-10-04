@@ -2,12 +2,14 @@ package paa.sort.domain.performance;
 
 import paa.sort.domain.algorithms.HybridQuickSort;
 import paa.sort.domain.testdata.DataType;
+import paa.sort.domain.exceptions.ValidationException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe responsavel por determinar empiricamente o melhor threshold (M) para o Quicksort hibrido
+ * Classe responsavel por determinar empiricamente o melhor threshold (M) para o
+ * Quicksort hibrido
  */
 public class ThresholdOptimizer {
     private final PerformanceTester performanceTester;
@@ -19,7 +21,7 @@ public class ThresholdOptimizer {
     /**
      * Determina o melhor threshold testando diferentes valores
      */
-    public OptimizationResult findOptimalThreshold(int arraySize, int iterations) {
+    public OptimizationResult findOptimalThreshold(int arraySize, int iterations) throws ValidationException {
         System.out.println("Determinando o melhor threshold (M) para o Quicksort hibrido...");
         System.out.println("Tamanho do array: " + arraySize + ", Iteracoes: " + iterations);
         System.out.println();
@@ -27,20 +29,19 @@ public class ThresholdOptimizer {
         List<ThresholdResult> results = new ArrayList<>();
 
         // Testa diferentes valores de threshold
-        int[] thresholds = {5, 10, 15, 20, 25, 30, 40, 50, 75, 100};
+        int[] thresholds = { 5, 10, 15, 20, 25, 30, 40, 50, 75, 100 };
 
         for (int threshold : thresholds) {
             HybridQuickSort algorithm = new HybridQuickSort(threshold);
 
             // Testa com dados aleatorios
             PerformanceResult result = performanceTester.testAlgorithmMultipleTimes(
-                algorithm, DataType.RANDOM, arraySize, iterations
-            );
+                    algorithm, DataType.RANDOM, arraySize, iterations);
 
             results.add(new ThresholdResult(threshold, result.getExecutionTimeNanos()));
 
             System.out.printf("Threshold M=%d: %.2f ms%n",
-                threshold, result.getExecutionTimeMillis());
+                    threshold, result.getExecutionTimeMillis());
         }
 
         // Encontra o melhor threshold
@@ -50,7 +51,7 @@ public class ThresholdOptimizer {
 
         System.out.println();
         System.out.printf("Melhor threshold determinado: M=%d (%.2f ms)%n",
-            best.getThreshold(), best.getExecutionTime() / 1_000_000.0);
+                best.getThreshold(), best.getExecutionTime() / 1_000_000.0);
 
         return new OptimizationResult(best.getThreshold(), results);
     }

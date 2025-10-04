@@ -4,7 +4,7 @@ ARRAY APOS ORDENACAO
 Algoritmo: Quicksort Recursivo
 Tipo Original: Ordenado Inverso
 Tamanho: 2000 elementos
-Data/Hora: 04/10/2025 10:56:29
+Data/Hora: 04/10/2025 11:21:06
 ----------------------------------------
 Elementos ordenados:
 [0] = 0

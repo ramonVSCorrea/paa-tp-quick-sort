@@ -3,7 +3,7 @@ ARRAY ORIGINAL TESTADO
 ========================================
 Tipo: Ordenado Inverso
 Tamanho: 100 elementos
-Data/Hora: 04/10/2025 10:56:29
+Data/Hora: 04/10/2025 11:21:06
 ----------------------------------------
 Elementos:
 [0] = 99

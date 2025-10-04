@@ -4,7 +4,7 @@ ARRAY APOS ORDENACAO
 Algoritmo: Quicksort Hibrido Melhorado (M=50, Mediana-de-3)
 Tipo Original: Ordenado
 Tamanho: 10000 elementos
-Data/Hora: 04/10/2025 10:56:29
+Data/Hora: 04/10/2025 11:20:38
 ----------------------------------------
 Elementos ordenados:
 [0] = 0
