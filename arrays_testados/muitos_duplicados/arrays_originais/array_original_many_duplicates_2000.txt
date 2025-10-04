@@ -3,7 +3,7 @@ ARRAY ORIGINAL TESTADO
 ========================================
 Tipo: Muitos Duplicados
 Tamanho: 2000 elementos
-Data/Hora: 28/09/2025 15:29:49
+Data/Hora: 04/10/2025 10:56:30
 ----------------------------------------
 Elementos:
 [0] = 18

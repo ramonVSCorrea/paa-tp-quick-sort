@@ -3,7 +3,7 @@ ARRAY ORIGINAL TESTADO
 ========================================
 Tipo: Aleatorio
 Tamanho: 2000 elementos
-Data/Hora: 28/09/2025 15:29:44
+Data/Hora: 04/10/2025 10:56:27
 ----------------------------------------
 Elementos:
 [0] = 2356

@@ -40,15 +40,15 @@ public class QuickSortComparativeStudy {
      */
     public void executeCompleteStudy() {
         System.out.println("=== ESTUDO COMPARATIVO DE ALGORITMOS QUICKSORT ===");
-        System.out.println("Configuracao: " + MULTIPLE_EXECUTIONS + " execucoes por teste + " + WARMUP_EXECUTIONS + " aquecimentos");
+        System.out.println("Configuracao: " + MULTIPLE_EXECUTIONS + " execucoes por teste + " + WARMUP_EXECUTIONS
+                + " aquecimentos");
         System.out.println("Gerando arquivos .txt organizados por tipo de dados...");
         System.out.println();
 
         List<PerformanceResult> allResults = new ArrayList<>();
 
         // 1. Determina o threshold otimo
-        ThresholdOptimizer.OptimizationResult optimization =
-            thresholdOptimizer.findOptimalThreshold(1000, 10);
+        ThresholdOptimizer.OptimizationResult optimization = thresholdOptimizer.findOptimalThreshold(1000, 10);
         int optimalThreshold = optimization.getOptimalThreshold();
 
         System.out.println();
@@ -59,15 +59,15 @@ public class QuickSortComparativeStudy {
         List<SortingAlgorithm> algorithms = createAlgorithms(optimalThreshold);
 
         // 3. Define os tamanhos de teste
-        int[] testSizes = {100, 500, 1000, 2000, 5000, 10000};
+        int[] testSizes = { 100, 500, 1000, 2000, 5000, 10000 };
 
         // 4. Define os tipos de dados para teste
         DataType[] dataTypes = {
-            DataType.RANDOM,
-            DataType.SORTED,
-            DataType.REVERSE_SORTED,
-            DataType.MANY_DUPLICATES,
-            DataType.WORST_CASE
+                DataType.RANDOM,
+                DataType.SORTED,
+                DataType.REVERSE_SORTED,
+                DataType.MANY_DUPLICATES,
+                DataType.WORST_CASE
         };
 
         // 5. Executa os testes comparativos
@@ -90,15 +90,14 @@ public class QuickSortComparativeStudy {
                 for (SortingAlgorithm algorithm : algorithms) {
                     // MUDANCA PRINCIPAL: Executa multiplas vezes e calcula medias
                     PerformanceResult result = testAlgorithmMultipleTimesAndSaveArrays(
-                        algorithm, dataType, size, originalArray, MULTIPLE_EXECUTIONS
-                    );
+                            algorithm, dataType, size, originalArray, MULTIPLE_EXECUTIONS);
                     results.add(result);
                     allResults.add(result);
                     typeResults.add(result);
 
                     System.out.printf("  %s: %.2f ms | Comp: %d | Trocas: %d%n",
-                        result.getAlgorithmName(), result.getExecutionTimeMillis(),
-                        result.getComparisons(), result.getSwaps());
+                            result.getAlgorithmName(), result.getExecutionTimeMillis(),
+                            result.getComparisons(), result.getSwaps());
                 }
 
                 // Encontra o melhor resultado
@@ -209,14 +208,13 @@ public class QuickSortComparativeStudy {
         }
 
         return new PerformanceResult(
-            algorithm.getName(),
-            dataType.getDescription(),
-            size,
-            averageTime,
-            allSuccessful,
-            averageComparisons,
-            averageSwaps
-        );
+                algorithm.getName(),
+                dataType.getDescription(),
+                size,
+                averageTime,
+                allSuccessful,
+                averageComparisons,
+                averageSwaps);
     }
 
     /**
@@ -255,7 +253,7 @@ public class QuickSortComparativeStudy {
         System.out.println("=== ANALISE DO PIOR CASO ===");
         System.out.println();
 
-        int[] worstCaseSizes = {100, 200, 500, 1000};
+        int[] worstCaseSizes = { 100, 200, 500, 1000 };
 
         System.out.println("Testando com arrays que forcam o pior caso do Quicksort:");
         System.out.println("Executando " + MULTIPLE_EXECUTIONS + " vezes cada teste...");
@@ -274,18 +272,16 @@ public class QuickSortComparativeStudy {
                 try {
                     // MUDANCA: Usa multiplas execucoes tambem no pior caso
                     PerformanceResult result = testAlgorithmMultipleTimesAndSaveArrays(
-                        algorithm, DataType.WORST_CASE, size, worstCaseArray, MULTIPLE_EXECUTIONS
-                    );
+                            algorithm, DataType.WORST_CASE, size, worstCaseArray, MULTIPLE_EXECUTIONS);
                     worstCaseResults.add(result);
                     allResults.add(result);
 
                     System.out.printf("  %s: %.2f ms | Comp: %d | Trocas: %d (Sucesso: %s)%n",
-                        result.getAlgorithmName(),
-                        result.getExecutionTimeMillis(),
-                        result.getComparisons(),
-                        result.getSwaps(),
-                        result.isSuccessful() ? "Sim" : "Nao"
-                    );
+                            result.getAlgorithmName(),
+                            result.getExecutionTimeMillis(),
+                            result.getComparisons(),
+                            result.getSwaps(),
+                            result.isSuccessful() ? "Sim" : "Nao");
 
                 } catch (StackOverflowError e) {
                     System.out.printf("  %s: STACK OVERFLOW ERROR%n", algorithm.getName());
