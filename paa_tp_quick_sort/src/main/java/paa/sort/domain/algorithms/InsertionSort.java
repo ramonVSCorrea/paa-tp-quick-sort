@@ -25,24 +25,25 @@ public class InsertionSort {
      * @param metrics Objeto para coletar metricas
      */
     public static void sort(int[] array, int low, int high, SortingMetrics metrics) {
-        for (int i = low + 1; i <= high; i++) {
-            int key = array[i];
-            int j = i - 1;
+        for (int currentIndex = low + 1; currentIndex <= high; currentIndex++) {
+            int valueToInsert = array[currentIndex];
+            int comparisonIndex = currentIndex - 1;
 
-            while (j >= low) {
-                metrics.incrementComparisons(); // Comparacao: array[j] > key
-                if (array[j] > key) {
-                    array[j + 1] = array[j];
+            while (comparisonIndex >= low) {
+                metrics.incrementComparisons(); // Comparacao: array[comparisonIndex] > valueToInsert
+                if (array[comparisonIndex] > valueToInsert) {
+                    array[comparisonIndex + 1] = array[comparisonIndex];
                     metrics.incrementSwaps(); // Movimento/troca
-                    j--;
+                    comparisonIndex--;
                 } else {
                     break;
                 }
             }
 
-            if (j + 1 != i) { // So conta como troca se houve movimento
-                array[j + 1] = key;
-                metrics.incrementSwaps(); // Insercao do key na posicao correta
+            int insertionPosition = comparisonIndex + 1;
+            if (insertionPosition != currentIndex) { // So conta como troca se houve movimento
+                array[insertionPosition] = valueToInsert;
+                metrics.incrementSwaps(); // Insercao do valueToInsert na posicao correta
             }
         }
     }
