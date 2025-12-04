@@ -2,19 +2,16 @@ package paa.sort.domain.performance;
 
 import paa.sort.domain.algorithms.HybridQuickSort;
 import paa.sort.domain.testdata.DataType;
+import paa.sort.domain.exceptions.ValidationException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe responsavel por determinar empiricamente o melhor threshold (M) para o Quicksort hibrido
+ * Classe responsavel por determinar empiricamente o melhor threshold (M) para o
+ * Quicksort hibrido
  */
 public class ThresholdOptimizer {
-    private static final int[] DEFAULT_THRESHOLD_CANDIDATES = {5, 10, 15, 20, 25, 30, 40, 50, 75, 100};
-    private static final int THRESHOLD_MIN = 5;
-    private static final int THRESHOLD_MAX = 100;
-    private static final int THRESHOLD_STEP = 5;
-
     private final PerformanceTester performanceTester;
 
     public ThresholdOptimizer() {
@@ -24,40 +21,39 @@ public class ThresholdOptimizer {
     /**
      * Determina o melhor threshold testando diferentes valores
      */
-    public OptimizationResult findOptimalThreshold(int arraySize, int iterations) {
+    public OptimizationResult findOptimalThreshold(int arraySize, int iterations) throws ValidationException {
         System.out.println("Determinando o melhor threshold (M) para o Quicksort hibrido...");
         System.out.println("Tamanho do array: " + arraySize + ", Iteracoes: " + iterations);
         System.out.println();
 
-        List<ThresholdResult> allThresholdResults = new ArrayList<>();
+        List<ThresholdResult> results = new ArrayList<>();
 
         // Testa diferentes valores de threshold
-        int[] thresholdCandidates = DEFAULT_THRESHOLD_CANDIDATES;
+        int[] thresholds = { 5, 10, 15, 20, 25, 30, 40, 50, 75, 100 };
 
-        for (int candidateThreshold : thresholdCandidates) {
-            HybridQuickSort hybridAlgorithm = new HybridQuickSort(candidateThreshold);
+        for (int threshold : thresholds) {
+            HybridQuickSort algorithm = new HybridQuickSort(threshold);
 
             // Testa com dados aleatorios
-            PerformanceResult performanceResult = performanceTester.testAlgorithmMultipleTimes(
-                hybridAlgorithm, DataType.RANDOM, arraySize, iterations
-            );
+            PerformanceResult result = performanceTester.testAlgorithmMultipleTimes(
+                    algorithm, DataType.RANDOM, arraySize, iterations);
 
-            allThresholdResults.add(new ThresholdResult(candidateThreshold, performanceResult.getExecutionTimeNanos()));
+            results.add(new ThresholdResult(threshold, result.getExecutionTimeNanos()));
 
             System.out.printf("Threshold M=%d: %.2f ms%n",
-                candidateThreshold, performanceResult.getExecutionTimeMillis());
+                    threshold, result.getExecutionTimeMillis());
         }
 
         // Encontra o melhor threshold
-        ThresholdResult bestThresholdResult = allThresholdResults.stream()
+        ThresholdResult best = results.stream()
                 .min((r1, r2) -> Long.compare(r1.getExecutionTime(), r2.getExecutionTime()))
-                .orElse(allThresholdResults.get(0));
+                .orElse(results.get(0));
 
         System.out.println();
         System.out.printf("Melhor threshold determinado: M=%d (%.2f ms)%n",
-            bestThresholdResult.getThreshold(), bestThresholdResult.getExecutionTime() / 1_000_000.0);
+                best.getThreshold(), best.getExecutionTime() / 1_000_000.0);
 
-        return new OptimizationResult(bestThresholdResult.getThreshold(), allThresholdResults);
+        return new OptimizationResult(best.getThreshold(), results);
     }
 
     /**

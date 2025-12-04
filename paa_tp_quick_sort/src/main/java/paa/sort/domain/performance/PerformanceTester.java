@@ -3,7 +3,7 @@ package paa.sort.domain.performance;
 import paa.sort.domain.SortingAlgorithm;
 import paa.sort.domain.testdata.DataType;
 import paa.sort.domain.testdata.TestDataGenerator;
-import paa.sort.domain.validation.ArrayValidator;
+import paa.sort.domain.exceptions.ValidationException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,8 @@ public class PerformanceTester {
     /**
      * Executa um teste de performance para um algoritmo especifico
      */
-    public PerformanceResult testAlgorithm(SortingAlgorithm algorithm, DataType dataType, int arraySize) {
+    public PerformanceResult testAlgorithm(SortingAlgorithm algorithm, DataType dataType, int arraySize)
+            throws ValidationException {
         int[] testData = dataGenerator.generateData(dataType, arraySize);
 
         // Aquece a JVM
@@ -33,7 +34,7 @@ public class PerformanceTester {
         try {
             int[] result = algorithm.sort(testData);
             // Verifica se o resultado esta ordenado
-            if (!ArrayValidator.isSorted(result)) {
+            if (!isSorted(result)) {
                 successful = false;
             }
         } catch (Exception e) {
@@ -44,19 +45,18 @@ public class PerformanceTester {
         long executionTime = endTime - startTime;
 
         return new PerformanceResult(
-            algorithm.getName(),
-            dataType.getDescription(),
-            arraySize,
-            executionTime,
-            successful
-        );
+                algorithm.getName(),
+                dataType.getDescription(),
+                arraySize,
+                executionTime,
+                successful);
     }
 
     /**
      * Executa multiplos testes e retorna a media dos tempos
      */
     public PerformanceResult testAlgorithmMultipleTimes(SortingAlgorithm algorithm, DataType dataType,
-                                                       int arraySize, int iterations) {
+            int arraySize, int iterations) throws ValidationException {
         List<PerformanceResult> results = new ArrayList<>();
 
         for (int i = 0; i < iterations; i++) {
@@ -71,12 +71,11 @@ public class PerformanceTester {
         boolean allSuccessful = results.stream().allMatch(PerformanceResult::isSuccessful);
 
         return new PerformanceResult(
-            algorithm.getName(),
-            dataType.getDescription(),
-            arraySize,
-            averageTime,
-            allSuccessful
-        );
+                algorithm.getName(),
+                dataType.getDescription(),
+                arraySize,
+                averageTime,
+                allSuccessful);
     }
 
     /**
@@ -92,4 +91,19 @@ public class PerformanceTester {
         }
     }
 
+    /**
+     * Verifica se um array esta ordenado
+     */
+    private boolean isSorted(int[] array) {
+        if (array == null || array.length <= 1) {
+            return true;
+        }
+
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < array[i - 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

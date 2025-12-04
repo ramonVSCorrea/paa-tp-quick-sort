@@ -1,5 +1,8 @@
 package paa.sort.domain.testdata;
 
+import paa.sort.domain.exceptions.ValidationException;
+import paa.sort.infrastructure.logging.ExceptionLogger;
+
 import java.util.Random;
 
 /**
@@ -7,26 +10,72 @@ import java.util.Random;
  */
 public class TestDataGenerator {
     private final Random random;
+    private final ExceptionLogger exceptionLogger;
 
     public TestDataGenerator() {
         this.random = new Random();
+        this.exceptionLogger = ExceptionLogger.getInstance();
     }
 
     public TestDataGenerator(long seed) {
         this.random = new Random(seed);
+        this.exceptionLogger = ExceptionLogger.getInstance();
+        exceptionLogger.logInfo("TestDataGenerator inicializado com seed: " + seed, "Inicialização");
     }
 
     /**
      * Gera um array de acordo com o tipo especificado
      */
-    public int[] generateData(DataType type, int size) {
-        return switch (type) {
-            case RANDOM -> generateRandomArray(size);
-            case SORTED -> generateSortedArray(size);
-            case REVERSE_SORTED -> generateReverseSortedArray(size);
-            case MANY_DUPLICATES -> generateManyDuplicatesArray(size);
-            case WORST_CASE -> generateWorstCaseArray(size);
-        };
+    public int[] generateData(DataType type, int size) throws ValidationException {
+        try {
+            validateGenerationParameters(type, size);
+        } catch (ValidationException e) {
+            exceptionLogger.logValidationError(e, "generateData");
+            throw e;
+        }
+
+        exceptionLogger.logInfo("Gerando dados: tipo=" + type.getDescription() + ", tamanho=" + size,
+                "Geração de dados");
+
+        try {
+            int[] result = switch (type) {
+                case RANDOM -> generateRandomArray(size);
+                case SORTED -> generateSortedArray(size);
+                case REVERSE_SORTED -> generateReverseSortedArray(size);
+                case MANY_DUPLICATES -> generateManyDuplicatesArray(size);
+                case WORST_CASE -> generateWorstCaseArray(size);
+            };
+
+            exceptionLogger.logInfo("Dados gerados com sucesso: " + result.length + " elementos", "Geração de dados");
+            return result;
+
+        } catch (Exception e) {
+            ValidationException validationException = new ValidationException(
+                    "Falha ao gerar dados de teste: " + e.getMessage(),
+                    "generateData",
+                    "tipo=" + type + ", tamanho=" + size,
+                    e);
+            exceptionLogger.logValidationError(validationException, "Geração de dados falhou");
+            throw validationException;
+        }
+    }
+
+    /**
+     * Valida parâmetros para geração de dados
+     */
+    private void validateGenerationParameters(DataType type, int size) throws ValidationException {
+        if (type == null) {
+            throw new ValidationException("Tipo de dados não pode ser null", "type", null);
+        }
+
+        if (size <= 0) {
+            throw new ValidationException("Tamanho deve ser positivo", "size", size);
+        }
+
+        if (size > 1_000_000) {
+            exceptionLogger.logWarning("Tamanho muito grande pode causar problemas de memória: " + size,
+                    "Validação de tamanho");
+        }
     }
 
     /**
