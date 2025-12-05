@@ -4,6 +4,7 @@ import paa.knapsack.domain.KnapsackInstance;
 import paa.knapsack.domain.KnapsackResult;
 import paa.knapsack.domain.algorithms.KnapsackDPLinear;
 import paa.knapsack.domain.algorithms.KnapsackPD;
+import paa.knapsack.domain.algorithms.KnapsackGreedy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +66,16 @@ public class ExperimentRunner {
             System.out.printf("[ExperimentRunner] DP-MatrizCompleta: %s%n", resDpMatriz);
         } catch (Exception e) {
             System.err.printf("[ExperimentRunner] Erro DP-MatrizCompleta: %s%n", e.getMessage());
+        }
+
+        // Greedy (Aproximado)
+        try {
+            System.out.printf("[ExperimentRunner] Executando Greedy (Aproximado)...%n");
+            KnapsackResult resGreedy = KnapsackGreedy.solve(instance);
+            resultados.add(resGreedy);
+            System.out.printf("[ExperimentRunner] Greedy: %s%n", resGreedy);
+        } catch (Exception e) {
+            System.err.printf("[ExperimentRunner] Erro Greedy: %s%n", e.getMessage());
         }
 
         return new ExperimentResult(numItems, capacidade, seed, resultados, resultadoOtimo);

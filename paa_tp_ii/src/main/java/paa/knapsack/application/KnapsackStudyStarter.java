@@ -19,7 +19,7 @@ public class KnapsackStudyStarter {
     public void executeCompleteStudy() {
         System.out.println("\n" + "=".repeat(80));
         System.out.println("  ESTUDO COMPLETO DO PROBLEMA DA MOCHILA (0/1)");
-        System.out.println("  Algoritmos: DP Linear-Space, DP Matriz-Completa");
+        System.out.println("  Algoritmos: DP Linear-Space, DP Matriz-Completa, Greedy (Aproximado)");
         System.out.println("=".repeat(80) + "\n");
 
         try {
