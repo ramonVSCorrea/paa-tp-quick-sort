@@ -9,6 +9,7 @@ public class Main {
     public static void main(String[] args) {
         KnapsackStudyStarter study = new KnapsackStudyStarter();
         study.executeCompleteStudy();
+        study.executeCustomStudy();
     }
 }
 

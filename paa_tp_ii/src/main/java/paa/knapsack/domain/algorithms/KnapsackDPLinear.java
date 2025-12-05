@@ -10,13 +10,12 @@ import java.util.List;
 /**
  * Algoritmo de Programação Dinâmica com Espaço Linear para o Problema da Mochila 0/1.
  *
- * LETRA B: Implementa um algoritmo com complexidade de espaço linear O(L)
+ * Implementa um algoritmo com complexidade de espaço linear O(L)
  * capaz de obter a solução ótima para o problema.
  *
  * Observação: Com espaço linear, não é possível reconstruir quais itens
  * foram selecionados. Para isso, utilize o algoritmo da Letra C (matriz completa).
  *
- * @author Yrlan
  */
 public class KnapsackDPLinear {
 

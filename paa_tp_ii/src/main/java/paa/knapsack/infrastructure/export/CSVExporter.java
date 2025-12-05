@@ -19,7 +19,7 @@ public class CSVExporter {
 
     public static String exportarExperimentos(
             List<ExperimentRunner.ExperimentResult> experimentos,
-            String caminhoSaida) throws IOException {
+            String caminhoSaida, String filenamePrefix) throws IOException {
 
         File dir = new File(caminhoSaida);
         if (!dir.exists()) {
@@ -27,7 +27,7 @@ public class CSVExporter {
         }
 
         String timestamp = LocalDateTime.now().format(TIME_FORMATTER);
-        String nomeArquivo = String.format("knapsack_results_%s.csv", timestamp);
+        String nomeArquivo = String.format("%s_%s.csv", filenamePrefix, timestamp);
         String caminhoCompleto = new File(dir, nomeArquivo).getAbsolutePath();
 
         try (FileWriter writer = new FileWriter(caminhoCompleto)) {
@@ -41,7 +41,7 @@ public class CSVExporter {
                         exp.numItems, exp.capacidade, exp.seed,
                         res.getNomeAlgoritmo(), res.getValorTotal(),
                         res.getPesoTotal(), res.getTempoExecutacaoMs(),
-                        res.getMemoriaUsadaKb(), razao > 0 ? razao : 0.0
+                        res.getMemoriaUsadaKb(), razao >= 0 ? razao : 0.0 // Changed > 0 to >=0
                     );
                     writer.write(linha);
                 }
@@ -55,14 +55,16 @@ public class CSVExporter {
 
     public static String exportarSumario(
             List<ExperimentRunner.ExperimentResult> experimentos,
-            String caminhoSaida) throws IOException {
+            String caminhoSaida, String filenamePrefix) throws IOException {
 
         File dir = new File(caminhoSaida);
         if (!dir.exists()) {
             dir.mkdirs();
         }
 
-        String caminhoCompleto = new File(dir, "knapsack_summary.csv").getAbsolutePath();
+        String timestamp = LocalDateTime.now().format(TIME_FORMATTER);
+        String nomeArquivo = String.format("%s_%s.csv", filenamePrefix, timestamp);
+        String caminhoCompleto = new File(dir, nomeArquivo).getAbsolutePath();
 
         try (FileWriter writer = new FileWriter(caminhoCompleto)) {
             writer.write("n,L,seed");
