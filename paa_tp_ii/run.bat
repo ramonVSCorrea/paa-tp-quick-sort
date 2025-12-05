@@ -34,14 +34,22 @@ echo.
 
 if not exist bin mkdir bin
 
-echo Compilando todas as classes Java...
-echo.
+REM Compilacao em etapas para garantir o classpath
+echo Compilando KnapsackResult.java...
+javac -d bin -encoding UTF-8 src/main/java/paa/knapsack/domain/KnapsackResult.java
+if errorlevel 1 (
+    echo Erro ao compilar KnapsackResult.java!
+    exit /b 1
+)
 
-REM Encontrar todos os arquivos .java
-set "javac_cmd=javac -d bin -encoding UTF-8"
+echo Compilando demais arquivos Java...
+set "javac_cmd=javac -d bin -encoding UTF-8 -cp bin"
 
+REM Adicionar todos os outros arquivos .java, exceto KnapsackResult.java
 for /r "src\main\java" %%F in (*.java) do (
-    set "javac_cmd=!javac_cmd! "%%F""
+    if not "%%F"=="src\main\java\paa\knapsack\domain\KnapsackResult.java" (
+        set "javac_cmd=!javac_cmd! "%%F""
+    )
 )
 
 echo Executando compilação...

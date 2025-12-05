@@ -1,6 +1,7 @@
 package paa.knapsack.application;
 
 import paa.knapsack.domain.KnapsackInstance;
+import paa.knapsack.domain.KnapsackResult; // Explicitly imported
 import paa.knapsack.domain.performance.ExperimentRunner;
 import paa.knapsack.domain.performance.ExperimentRunner.ExperimentResult;
 import paa.knapsack.domain.testdata.KnapsackInstanceGenerator;
@@ -18,17 +19,21 @@ public class KnapsackStudyStarter {
     public void executeCompleteStudy() {
         System.out.println("\n" + "=".repeat(80));
         System.out.println("  ESTUDO COMPLETO DO PROBLEMA DA MOCHILA (0/1)");
-        System.out.println("  Algoritmos: BruteForce, DP Linear-Space, Greedy, FPTAS");
+        System.out.println("  Algoritmos: DP Linear-Space, DP Matriz-Completa");
         System.out.println("=".repeat(80) + "\n");
 
         try {
-            int[] tamanhos = { 10, 15, 20, 25, 30 };
+            // Tamanhos para testar os limites dos algoritmos de Programação Dinâmica
+            // DP Linear-Space: O(n*L) tempo, O(L) espaço
+            // DP Matriz-Completa: O(n*L) tempo, O(n*L) espaço
+            // Como L é proporcional a n, a complexidade efetiva é O(n^2)
+            int[] tamanhos = { 10, 30, 100, 300, 500, 1000, 2000, 5000, 10000 };
 
             System.out.printf("[KnapsackStudyStarter] Executando bateria de testes com %d tamanhos distintos...%n%n",
                 tamanhos.length);
 
             List<ExperimentRunner.ExperimentResult> resultados =
-                ExperimentRunner.executarBateria(tamanhos, true);
+                ExperimentRunner.executarBateria(tamanhos);
 
             System.out.println("\n" + "=".repeat(80));
             System.out.println("  RESUMO DOS RESULTADOS");
@@ -58,27 +63,29 @@ public class KnapsackStudyStarter {
             System.out.printf("\n📊 Tamanho n=%d, Capacidade L=%d%n", exp.numItems, exp.capacidade);
             System.out.println("─".repeat(70));
 
+            // Print the optimal result first if available
             if (exp.resultadoOtimo != null) {
-                System.out.printf("  ✓ Ótimo (valor=%d, peso=%d, itens=%d)%n",
-                    exp.resultadoOtimo.getValorTotal(),
-                    exp.resultadoOtimo.getPesoTotal(),
-                    exp.resultadoOtimo.getNumItensSelecionados());
+                System.out.printf("  ✓ Ótimo (%s)%n", exp.resultadoOtimo); // Using toString for brevity
             }
 
-            for (var res : exp.resultados) {
-                if (res != exp.resultadoOtimo) {
-                    double razao = exp.calcularRazaoAproximacao(res);
-                    String razaoStr = (razao > 0)
-                        ? String.format("%.1f%%", razao * 100)
-                        : "N/A";
-
-                    System.out.printf("  → %-25s: valor=%4d, peso=%4d, tempo=%3dms, aprox=%s%n",
-                        res.getNomeAlgoritmo(),
-                        res.getValorTotal(),
-                        res.getPesoTotal(),
-                        res.getTempoExecutacaoMs(),
-                        razaoStr);
+            // Print all other results
+            for (KnapsackResult res : exp.resultados) {
+                // If it's the optimal result and already printed, skip it here
+                if (exp.resultadoOtimo != null && res == exp.resultadoOtimo) {
+                    continue;
                 }
+
+                double razao = exp.calcularRazaoAproximacao(res);
+                String razaoStr = (razao > 0)
+                    ? String.format("%.1f%%", razao * 100)
+                    : "N/A";
+
+                System.out.printf("  → %-25s: valor=%4d, peso=%4d, tempo=%3dms, aprox=%s%n",
+                    res.getNomeAlgoritmo(),
+                    res.getValorTotal(),
+                    res.getPesoTotal(),
+                    res.getTempoExecutacaoMs(),
+                    razaoStr);
             }
         }
     }
@@ -97,7 +104,7 @@ public class KnapsackStudyStarter {
                 System.out.println("  " + item);
             }
 
-            var resultado = ExperimentRunner.executarTodosAlgoritmos(instance, true, 0.1);
+            var resultado = ExperimentRunner.executarTodosAlgoritmos(instance);
 
             System.out.println("\n" + resultado);
 
@@ -107,4 +114,3 @@ public class KnapsackStudyStarter {
         }
     }
 }
-

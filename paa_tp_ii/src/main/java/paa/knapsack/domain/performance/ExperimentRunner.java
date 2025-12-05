@@ -2,7 +2,8 @@ package paa.knapsack.domain.performance;
 
 import paa.knapsack.domain.KnapsackInstance;
 import paa.knapsack.domain.KnapsackResult;
-import paa.knapsack.domain.algorithms.KnapsackSolver;
+import paa.knapsack.domain.algorithms.KnapsackDPLinear;
+import paa.knapsack.domain.algorithms.KnapsackPD;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,8 +36,7 @@ public class ExperimentRunner {
         }
     }
 
-    public static ExperimentResult executarTodosAlgoritmos(
-            KnapsackInstance instance, boolean executarBF, double epsilonFPTAS) {
+    public static ExperimentResult executarTodosAlgoritmos(KnapsackInstance instance) {
 
         int numItems = instance.getNumItems();
         int capacidade = instance.getCapacidade();
@@ -45,55 +45,32 @@ public class ExperimentRunner {
         List<KnapsackResult> resultados = new ArrayList<>();
         KnapsackResult resultadoOtimo = null;
 
-        // BruteForce
-        if (executarBF && numItems <= 22) {
-            try {
-                System.out.printf("[ExperimentRunner] Executando BruteForce (n=%d)...%n", numItems);
-                resultadoOtimo = KnapsackSolver.solveBruteForce(instance);
-                resultados.add(resultadoOtimo);
-                System.out.printf("[ExperimentRunner] BruteForce: %s%n", resultadoOtimo);
-            } catch (Exception e) {
-                System.err.printf("[ExperimentRunner] Erro BruteForce: %s%n", e.getMessage());
-            }
-        }
-
-        // DP
+        // DP Linear Space
         try {
             System.out.printf("[ExperimentRunner] Executando DP-LinearSpace...%n");
-            KnapsackResult resDp = KnapsackSolver.solveDPLinearSpace(instance);
-            resultados.add(resDp);
-            if (resultadoOtimo == null) resultadoOtimo = resDp;
-            System.out.printf("[ExperimentRunner] DP: %s%n", resDp);
+            KnapsackResult resDpLinear = KnapsackDPLinear.solveDPLinearSpace(instance);
+            resultados.add(resDpLinear);
+            resultadoOtimo = resDpLinear;
+            System.out.printf("[ExperimentRunner] DP-LinearSpace: %s%n", resDpLinear);
         } catch (Exception e) {
-            System.err.printf("[ExperimentRunner] Erro DP: %s%n", e.getMessage());
+            System.err.printf("[ExperimentRunner] Erro DP-LinearSpace: %s%n", e.getMessage());
         }
 
-        // Greedy
+        // DP Matriz Completa
         try {
-            System.out.printf("[ExperimentRunner] Executando Greedy-Ratio...%n");
-            KnapsackResult resGreedy = KnapsackSolver.solveGreedyByRatio(instance);
-            resultados.add(resGreedy);
-            System.out.printf("[ExperimentRunner] Greedy: %s%n", resGreedy);
+            System.out.printf("[ExperimentRunner] Executando DP-MatrizCompleta...%n");
+            KnapsackResult resDpMatriz = KnapsackPD.solve(instance);
+            resultados.add(resDpMatriz);
+            if (resultadoOtimo == null) resultadoOtimo = resDpMatriz;
+            System.out.printf("[ExperimentRunner] DP-MatrizCompleta: %s%n", resDpMatriz);
         } catch (Exception e) {
-            System.err.printf("[ExperimentRunner] Erro Greedy: %s%n", e.getMessage());
-        }
-
-        // FPTAS
-        for (double eps : new double[]{ 0.5, 0.1, 0.05 }) {
-            try {
-                System.out.printf("[ExperimentRunner] Executando FPTAS(ε=%.2f)...%n", eps);
-                KnapsackResult resFptas = KnapsackSolver.solveFPTAS(instance, eps);
-                resultados.add(resFptas);
-                System.out.printf("[ExperimentRunner] FPTAS: %s%n", resFptas);
-            } catch (Exception e) {
-                System.err.printf("[ExperimentRunner] Erro FPTAS: %s%n", e.getMessage());
-            }
+            System.err.printf("[ExperimentRunner] Erro DP-MatrizCompleta: %s%n", e.getMessage());
         }
 
         return new ExperimentResult(numItems, capacidade, seed, resultados, resultadoOtimo);
     }
 
-    public static List<ExperimentResult> executarBateria(int[] tamanhos, boolean executarBF) {
+    public static List<ExperimentResult> executarBateria(int[] tamanhos) {
         List<ExperimentResult> resultados = new ArrayList<>();
 
         for (int n : tamanhos) {
@@ -103,7 +80,7 @@ public class ExperimentRunner {
                 KnapsackInstance instance =
                     paa.knapsack.domain.testdata.KnapsackInstanceGenerator.generateBenchmark(n, seed);
 
-                ExperimentResult res = executarTodosAlgoritmos(instance, executarBF, 0.1);
+                ExperimentResult res = executarTodosAlgoritmos(instance);
                 resultados.add(res);
 
                 System.out.printf("[ExperimentRunner] Experimento(n=%d) concluído%n", n);
